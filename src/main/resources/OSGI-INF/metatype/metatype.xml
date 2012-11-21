@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD description="VSMC Value Set Plugin" name="VSMC Value Set Plugin" id="edu.mayo.cts2.framework.plugin.service.vsmc">
+		<AD name="UTS Service Name" id="utsServiceName" required="true" type="String" default="http://umlsks.nlm.nih.gov"/>
+		<AD name="UTS Username" id="utsUsername" required="true" type="String" />
+		<AD name="UTS Password" id="utsPassword" required="true" type="String" />
+		<AD name="UTS Auth Service Url" id="utsAuthServiceUrl" required="true" type="String" default="https://uts-ws.nlm.nih.gov/restful/IsValidUMLSUser"/>
+		<AD name="UTS License Code" id="utsLicenseCode" required="true" type="String" />
+		<AD name="UTS UMLS Release" id="utsUmlsRelease" required="true" type="String" default="2012AA"/>
+		<AD name="NamespaceService URL" id="namespaceServiceUrl" required="true" type="String" default="http://informatics.mayo.edu/cts2/services/bioportal-rdf/"  />
+		<AD name="UriResolutionService URL" id="uriResolutionServiceUrl" required="true" type="String" default="http://bmidev4:8000/"  />
+		<AD name="Security Check URL" id="securityCheckUrl" required="true" type="String" default="/j_spring_security_check"  />
+		<AD name="SNOMEDCT Entity URL Base" id="snomedCtUrlBase" required="false" type="String" default=""  />
+	</OCD>
+	<Designate pid="edu.mayo.cts2.framework.plugin.service.vsmc">
+        <Object ocdref="edu.mayo.cts2.framework.plugin.service.vsmc"/>
+    </Designate>
+	
+</metatype:MetaData>

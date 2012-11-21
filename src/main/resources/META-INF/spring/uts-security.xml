@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+
+	<security:http pattern="/" security="none"/>
+	<security:http pattern="/resources/**" security="none"/>
+	<security:http pattern="/system/**" security="none"/>
+	<security:http pattern="\A.*\?.*bypass=1.*\Z" path-type="regex" security="none"/>
+
+	<security:http>
+		<security:intercept-url pattern="/**" access="ROLE_USER" />
+<!-- 		<security:form-login  -->
+<!-- 			login-processing-url="${securityCheckUrl}" -->
+<!-- 			authentication-success-handler-ref="originalUrlSuccessHandler"  -->
+<!-- 			login-page="/mat/utslogin.html"/> -->
+		<security:http-basic/>
+	</security:http>
+
+	<beans:bean id="originalUrlSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+	    <beans:property name="useReferer" value="true"/>
+	    <beans:property name="defaultTargetUrl" value="/"/>
+	    <beans:property name="targetUrlParameter" value="spring-security-redirect"/>
+	</beans:bean>
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="utsSecurityProvider"/>	
+	</security:authentication-manager>
+
+	<beans:bean id="utsSecurityProvider" 
+		class="edu.mayo.cts2.framework.plugin.service.vsmc.security.UtsSecurityProvider"/>
+</beans:beans>
