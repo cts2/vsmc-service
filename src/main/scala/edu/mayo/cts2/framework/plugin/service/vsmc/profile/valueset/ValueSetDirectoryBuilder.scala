@@ -9,26 +9,27 @@ import edu.mayo.cts2.framework.filter.`match`.ResolvableMatchAlgorithmReference
 import edu.mayo.cts2.framework.filter.directory.AbstractRemovingDirectoryBuilder
 import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntry
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils._
+import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntrySummary
 
 case class ValueSetDirectoryBuilder(
-      allPossibleResults:List[ScalaJSON] , 
+      allPossibleResults:Seq[ScalaJSON] , 
       matchAlgorithmReferences:Set[ResolvableMatchAlgorithmReference] , 
       resolvablePropertyReferences:Set[ResolvablePropertyReference[ScalaJSON]]) 
-      extends AbstractRemovingDirectoryBuilder[ScalaJSON,ValueSetCatalogEntry](
+      extends AbstractRemovingDirectoryBuilder[ScalaJSON,ValueSetCatalogEntrySummary](
           allPossibleResults, 
           matchAlgorithmReferences, 
           resolvablePropertyReferences) {
   
   override
-  def transformResults(rawResults:java.util.List[ScalaJSON]): java.util.List[ValueSetCatalogEntry] = {
-    rawResults.foldLeft(Seq[ValueSetCatalogEntry]()) {
+  def transformResults(rawResults:java.util.List[ScalaJSON]): java.util.List[ValueSetCatalogEntrySummary] = {
+    rawResults.foldLeft(Seq[ValueSetCatalogEntrySummary]()) {
       (seq,row) => seq :+ rowToValueSet(row)
     }
   }
   
-  private def rowToValueSet(jsonRow: ScalaJSON) : ValueSetCatalogEntry = {
+  private def rowToValueSet(jsonRow: ScalaJSON) : ValueSetCatalogEntrySummary = {
     val oid = jsonRow.oid
-    val codeSystem = new ValueSetCatalogEntry()
+    val codeSystem = new ValueSetCatalogEntrySummary()
     codeSystem.setAbout(oidToUri(oid))
     
     codeSystem  

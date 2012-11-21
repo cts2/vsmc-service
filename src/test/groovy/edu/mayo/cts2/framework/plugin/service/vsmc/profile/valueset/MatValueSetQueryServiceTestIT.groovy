@@ -34,7 +34,7 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestQuerySize() {
-		assertTrue service.getResourceSummaries(null as ValueSetQuery,null,null).entries.size() > 10
+		assertTrue service.getResourceSummaries(null as ValueSetQuery,null,new Page()).entries.size() > 10
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 					)
 					[filter] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
 		assertEquals 1, summaries.entries.size()
 	}
