@@ -22,9 +22,9 @@ class ScalaJSONIterator(i: java.util.Iterator[java.lang.Object]) extends Iterato
 }
 
 class ScalaJSON(o: java.lang.Object) extends Seq[ScalaJSON] with Dynamic {
-  override def toString: String = o.toString
-  override def hashCode: Int = o.hashCode
-  override def equals(any:Any): Boolean = o.equals(any)
+  override def toString: String = if(o == null) null else o.toString
+  override def hashCode: Int = if(o == null) 0 else o.hashCode
+  override def equals(any:Any): Boolean = if(o == null) false else o.equals(any)
   def toInt: Int = o match {
     case i: Integer => i
     case _ => throw new JSONException

@@ -25,41 +25,41 @@ class MatValueSetReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestRead() {
-		assertNotNull service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.02.696"), null)
+		assertNotNull service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1920"), null)
 	}
 	
 	@Test
 	void TestReadByOid() {
 		//OID should be an alternate ID
-		assertNotNull service.read(ModelUtils.nameOrUriFromUri("2.16.840.1.113883.3.526.02.696"), null)
+		assertNotNull service.read(ModelUtils.nameOrUriFromUri("2.16.840.1.113883.3.600.1920"), null)
 	}
 	
 	@Test
 	void TestReadHasAlternateId() {
-		def vs = service.read(ModelUtils.nameOrUriFromUri("urn:oid:2.16.840.1.113883.3.526.02.696"), null)
+		def vs = service.read(ModelUtils.nameOrUriFromUri("urn:oid:2.16.840.1.113883.3.600.1920"), null)
 		
 		assertEquals 1, vs.alternateIDCount
 		
-		assertEquals "2.16.840.1.113883.3.526.02.696", vs.alternateID[0]
+		assertEquals "2.16.840.1.113883.3.600.1920", vs.alternateID[0]
 	}
 
 	@Test
 	void TestReadByUri() {
-		assertNotNull service.read(ModelUtils.nameOrUriFromUri("urn:oid:2.16.840.1.113883.3.526.02.696"), null)
+		assertNotNull service.read(ModelUtils.nameOrUriFromUri("urn:oid:2.16.840.1.113883.3.600.1920"), null)
 	}
 	
 	@Test
 	void TestReadCorrectName() {
-		def vs = service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.02.696"), null)
+		def vs = service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1920"), null)
 		
-		assertEquals "2.16.840.1.113883.3.526.02.696", vs.getValueSetName()
+		assertEquals "2.16.840.1.113883.3.600.1920", vs.getValueSetName()
 	}
 	
 	@Test
 	void TestReadCorrectAbout() {
-		def vs = service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.02.696"), null)
+		def vs = service.read(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1920"), null)
 		
-		assertEquals "urn:oid:2.16.840.1.113883.3.526.02.696", vs.getAbout()
+		assertEquals "urn:oid:2.16.840.1.113883.3.600.1920", vs.getAbout()
 	}
 	
 }

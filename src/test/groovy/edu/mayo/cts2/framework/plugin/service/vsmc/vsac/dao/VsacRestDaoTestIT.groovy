@@ -25,4 +25,12 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		
 		assertTrue 10 < vs.size()
 	}
+	
+	@Test
+	void TestGetMembersOfValueSet() {
+		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20121025", 10, 1)
+
+		assertNotNull result
+		assertTrue result.contains '"rowCount":5'
+	}
 }

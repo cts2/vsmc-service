@@ -27,8 +27,6 @@ class MatValueSetReadService extends AbstractService with ValueSetReadService {
     identifier: NameOrURI,
     readContext: ResolvedReadContext): ValueSetCatalogEntry = {
 
- 
-    
     null
   }
 

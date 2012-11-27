@@ -10,6 +10,8 @@ import edu.mayo.cts2.framework.filter.directory.AbstractRemovingDirectoryBuilder
 import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntry
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils._
 import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntrySummary
+import edu.mayo.cts2.framework.model.util.ModelUtils
+import edu.mayo.cts2.framework.model.core.EntryDescription
 
 case class ValueSetDirectoryBuilder(
       allPossibleResults:Seq[ScalaJSON] , 
@@ -29,9 +31,18 @@ case class ValueSetDirectoryBuilder(
   
   private def rowToValueSet(jsonRow: ScalaJSON) : ValueSetCatalogEntrySummary = {
     val oid = jsonRow.oid
-    val codeSystem = new ValueSetCatalogEntrySummary()
-    codeSystem.setAbout(oidToUri(oid))
+    val name = jsonRow.name
+    val valueSet = new ValueSetCatalogEntrySummary()
+    valueSet.setAbout(oidToUri(oid))
+    valueSet.setValueSetName(oid)
+    valueSet.setResourceName(oid)
+    valueSet.setFormalName(name)
     
-    codeSystem  
+    val description = new EntryDescription()
+    description.setValue(ModelUtils.toTsAnyType(name));
+    
+    valueSet.setResourceSynopsis(description)
+    
+    valueSet  
   }
 }

@@ -6,7 +6,6 @@ import javax.annotation.Resource
 import javax.xml.transform.stream.StreamResult
 
 import org.junit.Test
-import org.springframework.transaction.annotation.Transactional
 
 import edu.mayo.cts2.framework.core.xml.DelegatingMarshaller
 import edu.mayo.cts2.framework.model.command.Page
@@ -59,7 +58,7 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 			{
 				getFilterComponents : {
 					def filter = new ResolvedFilter(
-						matchValue:"02.99",
+						matchValue:"2.16.840.1.113883.3.117.1.7.1.377",
 						propertyReference: StandardModelAttributeReference.RESOURCE_NAME.propertyReference,
 						matchAlgorithmReference: StandardMatchAlgorithmReference.CONTAINS.matchAlgorithmReference
 					)
@@ -82,111 +81,67 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 					)
 					[filter] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
-		assertEquals 1, summaries.entries.size()
+		assertTrue 1 < summaries.entries.size()
 	}
 	
 	@Test
 	void TestIsPartialTrue() {
 		def summaries = service.getResourceSummaries(null as ValueSetQuery,null,new Page(maxToReturn:50,page:0))
 		
-		assertTrue summaries.entries.size() < 50
+		assertEquals 'Actual:' + summaries.entries.size(), 50, summaries.entries.size()
 		
-		assertTrue summaries.atEnd
+		assertFalse summaries.atEnd
 	}
-	
-	@Test
-	void TestQueryContainsPropertyFilterEmeasure() {
-		
-		def ref = new PropertyReference()
-		ref.referenceTarget = new URIAndEntityName(uri:"some uri", name:"emeasureid")
-		ref.referenceType = TargetReferenceType.PROPERTY
-		
-		def summaries = service.getResourceSummaries(
-			{
-				getFilterComponents : {
-					def filter = new ResolvedFilter(
-						matchValue:"172",
-						propertyReference: ref,
-						matchAlgorithmReference: StandardMatchAlgorithmReference.EXACT_MATCH.matchAlgorithmReference
-					)
-					[filter] as Set
-				}
-			} as ValueSetQuery,null,null)
-		
-		assertEquals 1, summaries.entries.size()
-	}
-	
-	@Test
-	void TestQueryContainsPropertyFilterEmeasureWithDuplicateInGroup() {
-		
-		def ref = new PropertyReference()
-		ref.referenceTarget = new URIAndEntityName(uri:"some uri", name:"emeasureid")
-		ref.referenceType = TargetReferenceType.PROPERTY
-		
-		def summaries = service.getResourceSummaries(
-			{
-				getFilterComponents : {
-					def filter = new ResolvedFilter(
-						matchValue:"171",
-						propertyReference: ref,
-						matchAlgorithmReference: StandardMatchAlgorithmReference.EXACT_MATCH.matchAlgorithmReference
-					)
-					[filter] as Set
-				}
-			} as ValueSetQuery,null,null)
-		
-		assertEquals 1, summaries.entries.size()
-	}
-	
+
 	@Test
 	void TestQueryTwoFilters() {
 		
 		def ref1 = new PropertyReference()
-		ref1.referenceTarget = new URIAndEntityName(uri:"some uri", name:"emeasureid")
+		ref1.referenceTarget = new URIAndEntityName(uri:"some uri", name:"nqfnumber")
 		ref1.referenceType = TargetReferenceType.PROPERTY
 		
 		def ref2 = new PropertyReference()
-		ref2.referenceTarget = new URIAndEntityName(uri:"some uri", name:"nqfnumber")
+		ref2.referenceTarget = new URIAndEntityName(uri:"some uri", name:"qdmcategory")
 		ref2.referenceType = TargetReferenceType.PROPERTY
 		
 		def summaries = service.getResourceSummaries(
 			{
 				getFilterComponents : {
 					def filter1 = new ResolvedFilter(
-						matchValue:"172",
+						matchValue:"0142",
 						propertyReference: ref1,
 						matchAlgorithmReference: StandardMatchAlgorithmReference.EXACT_MATCH.matchAlgorithmReference
 					)
 					def filter2 = new ResolvedFilter(
-						matchValue:"0453",
+						matchValue:"Transfer Of Care",
 						propertyReference: ref2,
 						matchAlgorithmReference: StandardMatchAlgorithmReference.EXACT_MATCH.matchAlgorithmReference
 					)
 					[filter1,filter2] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
-		assertEquals 1, summaries.entries.size()
+		assertEquals 2, summaries.entries.size()
 	}
 	
 	@Test
 	void TestQueryTwoFiltersOneInvalid() {
 		
 		def ref1 = new PropertyReference()
-		ref1.referenceTarget = new URIAndEntityName(uri:"some uri", name:"emeasureid")
+		ref1.referenceTarget = new URIAndEntityName(uri:"some uri", name:"nqfnumber")
 		ref1.referenceType = TargetReferenceType.PROPERTY
 		
 		def ref2 = new PropertyReference()
-		ref2.referenceTarget = new URIAndEntityName(uri:"some uri", name:"nqfnumber")
+		ref2.referenceTarget = new URIAndEntityName(uri:"some uri", name:"qdmcategory")
 		ref2.referenceType = TargetReferenceType.PROPERTY
 		
 		def summaries = service.getResourceSummaries(
 			{
 				getFilterComponents : {
 					def filter1 = new ResolvedFilter(
-						matchValue:"172",
+						matchValue:"0142",
 						propertyReference: ref1,
 						matchAlgorithmReference: StandardMatchAlgorithmReference.EXACT_MATCH.matchAlgorithmReference
 					)
@@ -197,13 +152,12 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 					)
 					[filter1,filter2] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
 		assertEquals 0, summaries.entries.size()
 	}
 	
 	@Test
-	@Transactional
 	void TestQueryContainsPropertyFilter() {
 		
 		def ref = new PropertyReference()
@@ -221,13 +175,12 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 					)
 					[filter] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
-		assertEquals 1, summaries.entries.size()
+		assertEquals 25, summaries.entries.size()
 	}
 	
 	@Test
-	@Transactional
 	void TestQueryContainsPropertyFilterInvalid() {
 		
 		def ref = new PropertyReference()
@@ -244,14 +197,14 @@ class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
 					)
 					[filter] as Set
 				}
-			} as ValueSetQuery,null,null)
+			} as ValueSetQuery,null,new Page())
 		
 		assertEquals 0, summaries.entries.size()
 	}
 	
 	@Test
 	void TestValidXml() {
-		def entries = service.getResourceSummaries(null as ValueSetQuery,null,null).entries
+		def entries = service.getResourceSummaries(null as ValueSetQuery,null,new Page()).entries
 		
 		assertTrue entries.size() > 0
 		
