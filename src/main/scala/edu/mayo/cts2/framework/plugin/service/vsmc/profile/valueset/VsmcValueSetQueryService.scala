@@ -37,7 +37,7 @@ import org.apache.commons.lang.StringUtils
 import edu.mayo.cts2.framework.service.constant.ExternalCts2Constants
 
 @Component
-class MatValueSetQueryService
+class VsmcValueSetQueryService
   extends AbstractService
   with ValueSetQueryService {
 

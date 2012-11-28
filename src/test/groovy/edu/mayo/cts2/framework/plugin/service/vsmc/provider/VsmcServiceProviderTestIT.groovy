@@ -10,10 +10,10 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.test.AbstractTestITBase
 import edu.mayo.cts2.framework.service.profile.entitydescription.EntityDescriptionReadService
 
 
-class MatServiceProviderTestIT extends AbstractTestITBase {
+class VsmcServiceProviderTestIT extends AbstractTestITBase {
 
 	@Resource
-	def MatServiceProvider provider
+	def VsmcServiceProvider provider
 
 	@Test
 	void TestSetUp() {

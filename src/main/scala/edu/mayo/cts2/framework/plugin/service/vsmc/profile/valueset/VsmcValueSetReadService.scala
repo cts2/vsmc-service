@@ -20,7 +20,7 @@ import edu.mayo.cts2.framework.model.core.StatementTarget
 import edu.mayo.cts2.framework.model.util.ModelUtils
 
 @Component
-class MatValueSetReadService extends AbstractService with ValueSetReadService {
+class VsmcValueSetReadService extends AbstractService with ValueSetReadService {
 
   @Override
   def read(

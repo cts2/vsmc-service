@@ -14,7 +14,7 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.test.AbstractTestITBase
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ValueSetDefinitionReadService
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.name.ValueSetDefinitionReadId
 
-class MatValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
+class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 
 	@Resource
 	def ValueSetDefinitionReadService service

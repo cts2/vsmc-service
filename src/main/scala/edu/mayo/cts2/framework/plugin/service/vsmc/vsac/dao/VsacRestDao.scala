@@ -19,7 +19,21 @@ class VsacRestDao {
   @scala.reflect.BeanProperty
   @Value("${utsPassword}")
   var password: String = _
+  
+  def getValueSetDefinition(oid:String, version:String) = {
+    val json = getJson(
+        "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def/"+version)
+        
+    parseJSON(json)
+  }
 
+  def getValueSetDefinitionVersions(oid:String) = {
+    val json = getJson(
+        "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def-versions")
+        
+    parseJSON(json).rows.foldLeft(Seq[String]())(_ :+ _.name.toString).sortWith(_ < _)
+  }
+  
   def getAllValueSets: Seq[ScalaJSON] = {
     val json = postJson("https://vsac.nlm.nih.gov/vsac/pc/vs/search", allValueSetsQueryParams)
 
@@ -53,7 +67,7 @@ class VsacRestDao {
     parseJSON(json)
   }
 
-  private def getJson(urlString: String, queryParams: Map[String, String]): String = {
+  private def getJson(urlString: String, queryParams: Map[String, String] = Map()): String = {
     val result = Http(url(urlString).GET.secure.as_!(username, password) <<? queryParams OK as.String).either
 
     result() match {

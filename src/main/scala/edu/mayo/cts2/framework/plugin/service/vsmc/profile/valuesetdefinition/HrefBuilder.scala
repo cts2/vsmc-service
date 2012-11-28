@@ -1,12 +1,14 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
 
 import scala.collection.JavaConversions._
+import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import scala.collection.JavaConversions.iterableAsScalaIterable
 import org.apache.commons.lang.StringUtils
 import org.springframework.stereotype.Component
 import edu.mayo.cts2.framework.core.url.UrlConstructor
 import javax.annotation.Resource
 import org.springframework.beans.factory.annotation.Value
+import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
 
 @Component
 class HrefBuilder {
@@ -20,14 +22,38 @@ class HrefBuilder {
 
   val SNOMEDCT = "SNOMED-CT"
   val UMLS_CODE_SYSTEMS = Set("CPT", "ICD-10-CM", "ICD-9-CM", "RxNorm", "LOINC")
-  
-  def contains(cs: String, compare:String):Boolean = {
+
+  def createEntityHref(row: ScalaJSON) = {
+
+    def createUmlsUtsUrl = {
+      urlConstructor.createEntityUrl(
+        csNameToSab(row.codesystemname),
+        csNameAndVersionToCsVersionName(row.codesystemname, row.codesystemversion),
+        row.code)
+    }
+
+    val cs = row.codesystemname
+
+    if (contains(cs, UMLS_CODE_SYSTEMS)) {
+      createUmlsUtsUrl
+    } else if (contains(cs, Set(SNOMEDCT))) {
+      if (StringUtils.isNotBlank(snomedCtUrlBase)) {
+        snomedCtUrlBase + "/" + row.code
+      } else {
+        createUmlsUtsUrl
+      }
+    } else {
+      null
+    }
+  }
+
+  def contains(cs: String, compare: String): Boolean = {
     contains(cs, Set(compare))
   }
-  
-  def contains(cs: String, set:Set[String]):Boolean = {
-    ! set.forall( (s) => {
-      ! s.replaceAll("-", "").toLowerCase.equals( cs.replaceAll("-", "").toLowerCase )
+
+  def contains(cs: String, set: Set[String]): Boolean = {
+    !set.forall((s) => {
+      !s.replaceAll("-", "").toLowerCase.equals(cs.replaceAll("-", "").toLowerCase)
     })
   }
 

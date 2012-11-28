@@ -19,7 +19,7 @@ import edu.mayo.cts2.framework.service.meta.StandardModelAttributeReference
 import edu.mayo.cts2.framework.service.profile.valueset.ValueSetQuery
 import edu.mayo.cts2.framework.service.profile.valueset.ValueSetQueryService
 
-class MatValueSetQueryServiceTestIT extends AbstractTestITBase {
+class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
 
 	@Resource
 	def ValueSetQueryService service

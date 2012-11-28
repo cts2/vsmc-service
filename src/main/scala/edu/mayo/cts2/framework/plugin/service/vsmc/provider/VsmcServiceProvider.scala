@@ -27,7 +27,7 @@ import edu.mayo.cts2.framework.util.spring.AbstractSpringServiceProvider
  *
  * @author <a href="mailto:kevin.peterson@mayo.edu">Kevin Peterson</a>
  */
-@Component("matServiceProvider")
-class MatServiceProvider extends AbstractSpringServiceProvider {
+@Component("vsmcServiceProvider")
+class VsmcServiceProvider extends AbstractSpringServiceProvider {
   //
 }
