@@ -68,6 +68,23 @@ class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
 		
 		assertEquals 1, summaries.entries.size()
 	}
+
+    @Test
+    void TestQueryContainsFilterCount() {
+        def count = service.count(
+                {
+                    getFilterComponents : {
+                        def filter = new ResolvedFilter(
+                                matchValue:"2.16.840.1.113883.3.117.1.7.1.377",
+                                propertyReference: StandardModelAttributeReference.RESOURCE_NAME.propertyReference,
+                                matchAlgorithmReference: StandardMatchAlgorithmReference.CONTAINS.matchAlgorithmReference
+                        )
+                        [filter] as Set
+                    }
+                } as ValueSetQuery)
+
+        assertEquals 1, count
+    }
 	
 	@Test
 	void TestQueryContainsFilterSynopsis() {

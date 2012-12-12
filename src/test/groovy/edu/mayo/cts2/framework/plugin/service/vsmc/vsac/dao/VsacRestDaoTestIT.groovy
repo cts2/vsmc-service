@@ -41,7 +41,7 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		assertNotNull result
 		assertTrue result.contains("\"rowCount\":5")
 	}
-	
+
 	@Test
 	void TestGetValueSetDefinition() {
 		def result = dao.getValueSetDefinition("2.16.840.1.113883.3.600.1.1519", "20121025")

@@ -19,7 +19,14 @@ class VsacRestDao {
   @scala.reflect.BeanProperty
   @Value("${utsPassword}")
   var password: String = _
-  
+
+  def getValueSet(oid:String) = {
+    val json = getJson(
+      "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid)
+
+    parseJSON(json)
+  }
+
   def getValueSetDefinition(oid:String, version:String) = {
     val json = getJson(
         "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def/"+version)

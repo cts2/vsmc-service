@@ -35,6 +35,7 @@ import edu.mayo.cts2.framework.model.core.types.TargetReferenceType
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils
 import org.apache.commons.lang.StringUtils
 import edu.mayo.cts2.framework.service.constant.ExternalCts2Constants
+import edu.mayo.cts2.framework.filter.directory.DirectoryBuilder
 
 @Component
 class VsmcValueSetQueryService
@@ -186,6 +187,17 @@ class VsmcValueSetQueryService
 
   def getResourceList(p1: ValueSetQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetCatalogEntry] = throw new UnsupportedOperationException()
 
-  def count(p1: ValueSetQuery): Int = throw new UnsupportedOperationException()
+  def count(query: ValueSetQuery): Int = {
+    var builder:DirectoryBuilder[ValueSetCatalogEntrySummary] = new ValueSetDirectoryBuilder(
+      vsacRestDao.getAllValueSets,
+      matchAlgorithms,
+      searchReferences)
+
+    if (query != null) {
+      builder = builder.restrict(query.getFilterComponent)
+    }
+
+    builder.count()
+  }
 
 }

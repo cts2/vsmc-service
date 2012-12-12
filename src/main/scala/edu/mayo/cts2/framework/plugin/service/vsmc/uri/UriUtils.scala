@@ -1,5 +1,7 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.uri
 
+import org.apache.commons.lang.StringUtils
+
 object UriUtils {
 
   val URN_PREFIX = "urn:"
@@ -21,5 +23,7 @@ object UriUtils {
   def uuidToUri(uuid: String) = UUID_URI_PREFIX + uuid
   
   def toSvsUri(localPart: String) = SVS_URI + "/" + localPart
+
+  def stripUriPrefix(oid: String) = StringUtils.removeStartIgnoreCase(oid, OID_URI_PREFIX)
 
 }

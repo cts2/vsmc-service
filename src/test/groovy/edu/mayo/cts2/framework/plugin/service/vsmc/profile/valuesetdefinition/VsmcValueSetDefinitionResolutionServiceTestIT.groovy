@@ -59,6 +59,15 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 	}
 	
 	@Test
+	void TestHeaderOfGrouping() {
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
+		
+		def entries = service.resolveDefinition(id, null, null, null, null, null, new Page())
+		
+		assertEquals 5, entries.resolvedValueSetHeader.resolvedUsingCodeSystem.size()
+	}
+
+	@Test
 	void TestHeaderValidXml() {
 		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 		
