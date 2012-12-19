@@ -28,24 +28,33 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestRead() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.1.11.1"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 		
 		def result = service.read(id, null)
 		
 		assertNotNull result
 	}
+
+    @Test
+    void TestReadNotFound() {
+        def id = new ValueSetDefinitionReadId("__INVALID__", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+
+        def result = service.read(id, null)
+
+        assertNull result
+    }
 	
 	@Test
 	void TestReadByTag() {
 		def ref = new VersionTagReference("CURRENT")
-		def result = service.readByTag(ModelUtils.nameOrUriFromName("2.16.840.1.113883.1.11.1"), ref, null)
+		def result = service.readByTag(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"), ref, null)
 		
 		assertNotNull result
 	}
 	
 	@Test
 	void TestReadGroupValueSet() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.03.695"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
 		
 		def result = service.read(id, null)
 		
@@ -60,12 +69,12 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 			}
 		}
 		
-		assertEquals 3, valuesets.size()
+		assertEquals 5, valuesets.size()
 	}
 	
 	@Test
 	void TestHasSourceAndNotation() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.1.11.1"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 		
 		def result = service.read(id, null).getResource()
 		
@@ -74,7 +83,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestHasEntries() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.1.11.1"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 		
 		def result = service.read(id, null).getResource()
 		
@@ -83,7 +92,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestReadValidXml() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.1.11.1"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 		
 		def result = service.read(id, null)
 		
@@ -94,7 +103,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestReadValidXmlGroup() {
-		def id = new ValueSetDefinitionReadId("1", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.03.695"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
 		
 		def result = service.read(id, null)
 		
