@@ -15,6 +15,17 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils
 
 object VsmcValueSetUtils {
+
+  def buildValueSetReference(valueSetRow :ScalaJSON, urlConstructor: UrlConstructor): ValueSetReference = {
+    val oid = valueSetRow.oid
+
+    val ref = new ValueSetReference()
+    ref.setContent(oid)
+    ref.setUri(UriUtils.oidToUri(oid))
+    ref.setHref(urlConstructor.createValueSetUrl(oid))
+
+    ref
+  }
   
   def buildValueSetDefinitionReference(
       valueSetDefRow :ScalaJSON, 

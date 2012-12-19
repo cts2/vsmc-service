@@ -1,5 +1,7 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
 
+import edu.mayo.cts2.framework.service.profile.valueset.ValueSetQuery
+
 import static org.junit.Assert.*
 
 import javax.annotation.Resource
@@ -20,26 +22,11 @@ class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 	@Resource
 	def ValueSetDefinitionQueryService service
 
-
 	def marshaller = new DelegatingMarshaller()
 	
 	@Test
 	void TestSetUp() {
 		assertNotNull service
-	}	
-	
-	@Test
-	void TestQuerySize() {
-		assertTrue service.getResourceSummaries(null as ValueSetDefinitionQuery,null,null).entries.size() > 10
-	}
-	
-	@Test
-	void TestIsPartialFalse() {
-		def summaries = service.getResourceSummaries(null as ValueSetDefinitionQuery,null,new Page(maxToReturn:5,page:0))
-		
-		assertTrue summaries.entries.size() < 50
-		
-		assertFalse summaries.atEnd
 	}
 	
 	@Test
@@ -48,7 +35,7 @@ class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 			{
 				getRestrictions : {
 					def restrictions = new ValueSetDefinitionQueryServiceRestrictions()
-					restrictions.setValueSet(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.02.99"))
+					restrictions.setValueSet(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
 				
 					restrictions
 				}
@@ -56,25 +43,24 @@ class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 		
 		assertEquals 1, summaries.entries.size()
 	}
-	
-	@Test
-	void TestIsPartialTrue() {
-		def summaries = service.getResourceSummaries(null as ValueSetDefinitionQuery,null,new Page(maxToReturn:50,page:0))
-		
-		assertTrue summaries.entries.size() < 50
-		
-		assertTrue summaries.atEnd
-	}
-	
-	@Test
-	void TestValidXml() {
-		def entries = service.getResourceSummaries(null as ValueSetDefinitionQuery,null,null).entries
-		
-		assertTrue entries.size() > 0
-		
-		entries.each {
-			marshaller.marshal(it, new StreamResult(new StringWriter()))
-		}
-	}
+
+    @Test
+    void TestValidXml() {
+        def summaries = service.getResourceSummaries(
+                {
+                    getRestrictions : {
+                        def restrictions = new ValueSetDefinitionQueryServiceRestrictions()
+                        restrictions.setValueSet(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+
+                        restrictions
+                    }
+                } as ValueSetDefinitionQuery,null,null)
+
+        assertTrue summaries.entries.size() > 0
+
+        summaries.entries.each {
+            marshaller.marshal(it, new StreamResult(new StringWriter()))
+        }
+    }
 
 }

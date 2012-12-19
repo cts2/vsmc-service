@@ -110,7 +110,7 @@ class VsmcValueSetQueryService
         NQF_NUMBER_PROP,
         UriUtils.toSvsUri("NQF Number"),
         "nqfs",
-        true)
+        canBeArray = true)
 
     val qdmCategory =
       createPropertyReference(
@@ -118,7 +118,7 @@ class VsmcValueSetQueryService
         QDM_CATEGORY_PROP,
         UriUtils.toSvsUri("Quality Data Model Category"),
         QDM_CATEGORY_PROP,
-        false)
+        canBeArray = false)
 
     val meaningfulUse =
       createPropertyReference(
@@ -126,7 +126,7 @@ class VsmcValueSetQueryService
         MU_PROP,
         UriUtils.toSvsUri("Meaningful Use Measures"),
         MU_PROP,
-        false)
+        canBeArray = false)
 
     val emeasureId =
       createPropertyReference(
@@ -134,7 +134,7 @@ class VsmcValueSetQueryService
         EMEASURE_ID_PROP,
         UriUtils.toSvsUri("eMeasure Identifier"),
         "measureid",
-        true)
+        canBeArray = true)
 
     val developer =
       createPropertyReference(
@@ -142,7 +142,7 @@ class VsmcValueSetQueryService
         "source",
         ExternalCts2Constants.buildModelAttributeUri("source"),
         "developerShort",
-        false)
+        canBeArray = false)
 
     Set(resourceName, resourceSynopsis, nqfNumber, qdmCategory, meaningfulUse, emeasureId, developer)
   }
@@ -174,7 +174,7 @@ class VsmcValueSetQueryService
     jsonElement: String,
     canBeArray: Boolean = false): ResolvablePropertyReference[ScalaJSON] = {
 
-    val attributeResolver = new ScalaJSONAttributeResolver(jsonElement, canBeArray);
+    val attributeResolver = new ScalaJSONAttributeResolver(jsonElement, canBeArray)
 
     val ref = new ResolvablePropertyReference[ScalaJSON](attributeResolver)
     ref.setReferenceType(referenceType)

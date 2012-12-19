@@ -7,7 +7,6 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import org.apache.commons.lang.ObjectUtils
 import org.apache.commons.lang.StringUtils
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import edu.mayo.cts2.framework.model.command.Page
 import edu.mayo.cts2.framework.model.command.ResolvedReadContext
 import edu.mayo.cts2.framework.model.core.CodeSystemReference
@@ -34,6 +33,7 @@ import edu.mayo.cts2.framework.service.profile.valuesetdefinition.name.ValueSetD
 import javax.annotation.Resource
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.VsacRestDao
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
+import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 
 @Component
 class VsmcValueSetDefinitionResolutionService extends AbstractService with ValueSetDefinitionResolutionService {
@@ -52,7 +52,6 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
 
   def getKnownProperties: Set[PredicateReference] = null
 
-  @Transactional
   def resolveDefinition(
     id: ValueSetDefinitionReadId,
     codeSystemVersions: Set[NameOrURI],

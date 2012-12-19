@@ -9,6 +9,8 @@ object UriUtils {
   val OID_PREFIX = "oid:"
     
   val UUID_PREFIX = "uuid:"
+
+  val VERSION_SEPARATOR = "/version/"
     
   val OID_URI_PREFIX = URN_PREFIX + OID_PREFIX
   
@@ -19,6 +21,8 @@ object UriUtils {
   val SVS_URI = "urn:ihe:iti:svs:2008"
 
   def oidToUri(oid: String) = OID_URI_PREFIX + oid
+
+  def oidAndVersionToUri(oid: String, version: String) = oidToUri(oid) + VERSION_SEPARATOR + version
   
   def uuidToUri(uuid: String) = UUID_URI_PREFIX + uuid
   

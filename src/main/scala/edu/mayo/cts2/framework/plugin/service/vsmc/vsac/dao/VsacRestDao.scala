@@ -34,6 +34,17 @@ class VsacRestDao {
     parseJSON(json)
   }
 
+  def getGroupingInfo(oid:String, version:String) = {
+    val params =
+      Map(
+        "_search" -> "false")
+
+    val json = getJson(
+      "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/grouping/"+oid+"/def/"+version, params)
+
+    parseJSON(json)
+  }
+
   def getValueSetDefinitionVersions(oid:String) = {
     val json = getJson(
         "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def-versions")

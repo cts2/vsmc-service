@@ -31,7 +31,6 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20121025", 10, 1)
 
 		assertNotNull result
-		assertTrue result.contains("\"rowCount\":5")
 	}
 	
 	@Test
@@ -39,7 +38,6 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20121025", 2, 1)
 
 		assertNotNull result
-		assertTrue result.contains("\"rowCount\":5")
 	}
 
 	@Test
@@ -48,6 +46,14 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 
 		assertNotNull result
 	}
+
+    @Test
+    void TestGetGroupingInfo() {
+        def result = dao.getGroupingInfo("2.16.840.1.113883.3.600.1.1525", "20121025")
+
+        println(result)
+        assertNotNull result
+    }
 	
 	@Test
 	void TestGetValueSetDefinitionVersions() {
