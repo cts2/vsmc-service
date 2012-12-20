@@ -1,8 +1,6 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
 
-import scala.collection.JavaConversions._
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
-import scala.collection.JavaConversions.iterableAsScalaIterable
 import org.apache.commons.lang.StringUtils
 import org.springframework.stereotype.Component
 import edu.mayo.cts2.framework.core.url.UrlConstructor

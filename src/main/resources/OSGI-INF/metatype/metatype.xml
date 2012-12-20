@@ -11,6 +11,7 @@
 		<AD name="UriResolutionService URL" id="uriResolutionServiceUrl" required="true" type="String" default="http://bmidev4:8000/"  />
 		<AD name="Security Check URL" id="securityCheckUrl" required="true" type="String" default="/j_spring_security_check"  />
 		<AD name="SNOMEDCT Entity URL Base" id="snomedCtUrlBase" required="false" type="String" default=""  />
+        <AD name="VSAC REST URL" id="vsacRestUrl" required="true" type="String" default="https://vsac.nlm.nih.gov/vsac"  />
 	</OCD>
 	<Designate pid="edu.mayo.cts2.framework.plugin.service.vsmc">
         <Object ocdref="edu.mayo.cts2.framework.plugin.service.vsmc"/>

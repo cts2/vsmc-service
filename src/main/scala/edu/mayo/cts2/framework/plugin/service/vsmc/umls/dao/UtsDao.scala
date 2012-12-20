@@ -1,11 +1,8 @@
-package edu.mayo.cts2.framework.plugin.service.vsmc.umls.dao;
+package edu.mayo.cts2.framework.plugin.service.vsmc.umls.dao
 
 import java.util.Date
 
-import scala.reflect.BeanProperty
-
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
 
 import gov.nih.nlm.umls.uts.webservice.UtsFault
 import gov.nih.nlm.umls.uts.webservice.UtsWsContentControllerImplService

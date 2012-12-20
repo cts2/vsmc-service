@@ -7,12 +7,8 @@ import edu.mayo.cts2.framework.model.service.core.DocumentedNamespaceReference
 import edu.mayo.cts2.framework.model.core.OpaqueData
 import edu.mayo.cts2.framework.model.core.VersionTagReference
 import scala.collection.JavaConversions._
-import edu.mayo.cts2.framework.model.core.CodeSystemVersionReference
 import javax.annotation.Resource
-import edu.mayo.cts2.framework.model.core.NameAndMeaningReference
-import edu.mayo.cts2.framework.model.core.CodeSystemReference
 import edu.mayo.cts2.framework.core.url.UrlConstructor
-import edu.mayo.cts2.framework.model.command.Page
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriResolver
 
 abstract class AbstractService extends BaseService {
@@ -23,10 +19,10 @@ abstract class AbstractService extends BaseService {
   val CURRENT_TAG = {
     new VersionTagReference("CURRENT")
   }
-  
+
   @Resource
   var urlConstructor: UrlConstructor = _
-  
+
   @Resource
   var uriResolver: UriResolver = _
 

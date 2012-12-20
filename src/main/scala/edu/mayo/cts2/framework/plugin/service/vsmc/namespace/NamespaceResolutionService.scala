@@ -3,7 +3,6 @@ package edu.mayo.cts2.framework.plugin.service.vsmc.namespace
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import clojure.lang.RT
-import javax.annotation.Resource
 
 @Component("namespaceResolutionService")
 class NamespaceResolutionService {
@@ -21,7 +20,7 @@ class NamespaceResolutionService {
 
     var uri = getNsUriFn.invoke(namespaceServiceUrl, prefix)
 
-    if(uri != null){
+    if (uri != null) {
       Option(uri.toString)
     } else {
       None

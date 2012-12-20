@@ -1,9 +1,7 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.entity
 
 import java.util.ArrayList
-import scala.Option.option2Iterable
 import scala.collection.JavaConversions._
-import scala.collection.JavaConverters._
 import org.springframework.stereotype.Component
 import edu.mayo.cts2.framework.model.command.Page
 import edu.mayo.cts2.framework.model.command.ResolvedReadContext
@@ -23,7 +21,6 @@ import edu.mayo.cts2.framework.model.entity.EntityList
 import edu.mayo.cts2.framework.model.entity.EntityListEntry
 import edu.mayo.cts2.framework.model.entity.NamedEntityDescription
 import edu.mayo.cts2.framework.model.service.core.EntityNameOrURI
-import edu.mayo.cts2.framework.plugin.service.vsmc.namespace.NamespaceResolutionService
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.plugin.service.vsmc.umls.dao.UtsDao
 import edu.mayo.cts2.framework.service.profile.entitydescription.EntityDescriptionReadService
@@ -36,7 +33,7 @@ import org.apache.commons.lang.StringUtils
 
 @Component
 class UtsEntityReadService extends AbstractService
-  with EntityDescriptionReadService {
+with EntityDescriptionReadService {
 
   @Resource
   var utsDao: UtsDao = _
@@ -75,8 +72,8 @@ class UtsEntityReadService extends AbstractService
 
   private def csvNameToSab(csvName: String) = {
     val sab = StringUtils.substringBefore(csvName, "-")
-    
-    if(sab.equals("LOINC")){
+
+    if (sab.equals("LOINC")) {
       "LNC"
     } else {
       sab

@@ -9,7 +9,6 @@ import edu.mayo.cts2.framework.model.core.VersionTagReference
 import edu.mayo.cts2.framework.model.service.core.NameOrURI
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.service.profile.codesystemversion.CodeSystemVersionReadService
-import javax.annotation.Resource
 
 @Component
 class UtsCodeSystemVersionService extends AbstractService with CodeSystemVersionReadService {
@@ -19,8 +18,8 @@ class UtsCodeSystemVersionService extends AbstractService with CodeSystemVersion
    */
   @Override
   def readByTag(
-    codeSystem: NameOrURI,
-    tag: VersionTagReference, readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
+                 codeSystem: NameOrURI,
+                 tag: VersionTagReference, readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
 
     if (tag.getContent() == null || !tag.getContent().equals("CURRENT")) {
       throw new RuntimeException("Only 'CURRENT' tag is supported")
@@ -31,13 +30,13 @@ class UtsCodeSystemVersionService extends AbstractService with CodeSystemVersion
 
   @Override
   def existsByTag(parentIdentifier: NameOrURI,
-    tag: VersionTagReference, readContext: ResolvedReadContext): Boolean = {
+                  tag: VersionTagReference, readContext: ResolvedReadContext): Boolean = {
     throw new UnsupportedOperationException()
   }
 
   @Override
   def read(identifier: NameOrURI,
-    readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
+           readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
     throw new UnsupportedOperationException()
   }
 
@@ -48,14 +47,14 @@ class UtsCodeSystemVersionService extends AbstractService with CodeSystemVersion
 
   @Override
   def existsVersionId(codeSystem: NameOrURI,
-    officialResourceVersionId: String): Boolean = {
+                      officialResourceVersionId: String): Boolean = {
     throw new UnsupportedOperationException()
   }
 
   @Override
   def getCodeSystemByVersionId(
-    codeSystem: NameOrURI, officialResourceVersionId: String,
-    readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
+                                codeSystem: NameOrURI, officialResourceVersionId: String,
+                                readContext: ResolvedReadContext): CodeSystemVersionCatalogEntry = {
     throw new UnsupportedOperationException()
   }
 

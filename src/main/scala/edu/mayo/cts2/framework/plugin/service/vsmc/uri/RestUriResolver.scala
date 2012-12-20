@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 import clojure.lang.RT
-import edu.mayo.cts2.framework.plugin.service.vsmc.namespace.NamespaceResolutionService
 
 @Component
 class RestUriResolver extends UriResolver {
-  
+
   RT.loadResourceScript("cts2/uri/UriResolutionService.clj");
 
   val getUri = RT.`var`("cts2.uri", "getUri")

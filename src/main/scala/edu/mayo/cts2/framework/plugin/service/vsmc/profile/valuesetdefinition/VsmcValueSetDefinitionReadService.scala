@@ -27,23 +27,23 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.uri.IdType
 @Component
 class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDefinitionReadService {
 
-  val GROUPING:String = "Grouping";
+  val GROUPING: String = "Grouping";
 
   @Resource
   var hrefBuilder: HrefBuilder = _
 
   @Resource
   var vsacRestDao: VsacRestDao = _
- 
+
   /**
    * This is incomplete... this is only here to map the 'CURRENT' tag to a CodeSystemVersionName.
    */
   @Override
   def readByTag(
-    valueSet: NameOrURI,
-    tag: VersionTagReference, readContext: ResolvedReadContext): LocalIdValueSetDefinition = {
+                 valueSet: NameOrURI,
+                 tag: VersionTagReference, readContext: ResolvedReadContext): LocalIdValueSetDefinition = {
 
-      if (tag.getContent() == null || !tag.getContent().equals("CURRENT")) {
+    if (tag.getContent() == null || !tag.getContent().equals("CURRENT")) {
       throw new RuntimeException("Only 'CURRENT' tag is supported")
     }
 
@@ -51,7 +51,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
 
     val versions = vsacRestDao.getValueSetDefinitionVersions(valueSetName)
 
-    if(versions == null || CollectionUtils.isEmpty(versions)){
+    if (versions == null || CollectionUtils.isEmpty(versions)) {
       return null;
     }
 
@@ -62,28 +62,28 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
 
   @Override
   def existsByTag(valueSet: NameOrURI,
-    tag: VersionTagReference, readContext: ResolvedReadContext): Boolean = {
+                  tag: VersionTagReference, readContext: ResolvedReadContext): Boolean = {
     readByTag(valueSet, tag, readContext) != null
   }
 
   @Override
   def read(
-    identifier: ValueSetDefinitionReadId,
-    readContext: ResolvedReadContext): LocalIdValueSetDefinition = {
+            identifier: ValueSetDefinitionReadId,
+            readContext: ResolvedReadContext): LocalIdValueSetDefinition = {
 
     val oid = identifier.getValueSet.getName
     val version = identifier.getName
 
     val definition = rowToValueSetDefinition(vsacRestDao.getValueSetDefinition(oid, version))
 
-    if(definition != null){
+    if (definition != null) {
       new LocalIdValueSetDefinition(version, definition)
     } else {
       null
     }
   }
 
-  private def rowToValueSetDefinition(jsonRow: ScalaJSON) : ValueSetDefinition = {
+  private def rowToValueSetDefinition(jsonRow: ScalaJSON): ValueSetDefinition = {
     val oid = jsonRow.oid
     val name = jsonRow.name
     val version = jsonRow.revision
@@ -91,7 +91,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
 
     //We still get JSON back even if we asked for the wrong thing, but
     //it will be all null. Check it here.
-    if(name.toString == null || version.toString == null){
+    if (name.toString == null || version.toString == null) {
       return null
     }
 
@@ -109,7 +109,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
 
     valueSetDefinition.setDefinedValueSet(buildValueSetReference(jsonRow, urlConstructor))
 
-    if(grouping){
+    if (grouping) {
       getGroups(oid, version).foreach {
         entry => {
           entry.setEntryOrder(valueSetDefinition.getEntryCount + 1)
@@ -127,7 +127,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
     valueSetDefinition
   }
 
-  private def getGroups(oid:String, version:String) = {
+  private def getGroups(oid: String, version: String) = {
     vsacRestDao.getGroupingInfo(oid, version).rows.foldLeft(Seq[ValueSetDefinitionEntry]())(
       (seq, row) => {
         seq :+ buildCompleteValueSetEntry(row)
@@ -135,7 +135,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
     )
   }
 
-  private def getEntries(oid:String, version:String) = {
+  private def getEntries(oid: String, version: String) = {
     vsacRestDao.getMembersOfValueSet(oid, version, 10, 10).rows.foldLeft(new SpecificEntityList())(
       (list, row) => {
         list.addReferencedEntity(buildEntityEntry(row))
@@ -144,7 +144,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
     )
   }
 
-  private def buildEntityEntry(json:ScalaJSON) = {
+  private def buildEntityEntry(json: ScalaJSON) = {
     val csName = uriResolver.idToName(json.codesystemname, IdType.CODE_SYSTEM)
     val code = json.code
 
@@ -159,7 +159,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
     entry;
   }
 
-  private def buildCompleteValueSetEntry(json:ScalaJSON) = {
+  private def buildCompleteValueSetEntry(json: ScalaJSON) = {
     val oid = json.oid;
 
     val vsdEntry = new ValueSetDefinitionEntry()
