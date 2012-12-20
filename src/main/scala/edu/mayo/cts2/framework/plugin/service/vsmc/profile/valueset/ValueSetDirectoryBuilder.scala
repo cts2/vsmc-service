@@ -11,6 +11,7 @@ import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntrySummary
 import edu.mayo.cts2.framework.model.util.ModelUtils
 import edu.mayo.cts2.framework.model.core.EntryDescription
 import edu.mayo.cts2.framework.core.url.UrlConstructor
+import VsmcValueSetUtils._
 
 case class ValueSetDirectoryBuilder(
                                      urlConstructor: UrlConstructor,
@@ -43,6 +44,7 @@ case class ValueSetDirectoryBuilder(
     description.setValue(ModelUtils.toTsAnyType(name));
 
     valueSet.setResourceSynopsis(description)
+    valueSet.setCurrentDefinition(buildValueSetDefinitionReference(jsonRow, urlConstructor))
 
     valueSet
   }

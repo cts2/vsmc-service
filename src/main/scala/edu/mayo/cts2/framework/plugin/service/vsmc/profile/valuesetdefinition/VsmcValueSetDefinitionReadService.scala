@@ -27,6 +27,8 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.uri.IdType
 @Component
 class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDefinitionReadService {
 
+  val MAX_SPECIFIC_ENTITIES: Int = 100;
+
   val GROUPING: String = "Grouping";
 
   @Resource
@@ -136,7 +138,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
   }
 
   private def getEntries(oid: String, version: String) = {
-    vsacRestDao.getMembersOfValueSet(oid, version, 10, 10).rows.foldLeft(new SpecificEntityList())(
+    vsacRestDao.getMembersOfValueSet(oid, version, MAX_SPECIFIC_ENTITIES, 0).rows.foldLeft(new SpecificEntityList())(
       (list, row) => {
         list.addReferencedEntity(buildEntityEntry(row))
         list

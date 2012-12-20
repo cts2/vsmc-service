@@ -88,8 +88,7 @@ class VsmcValueSetDefinitionQueryService
     val valueSetDefinition = new ValueSetDefinitionDirectoryEntry()
     valueSetDefinition.setAbout(oidToUri(oid))
     valueSetDefinition.setDocumentURI(oidAndVersionToUri(oid, version))
-    //valueSetDefinition.setValueSetName(oid)
-    valueSetDefinition.setResourceName(oid)
+    valueSetDefinition.setResourceName(version)
     valueSetDefinition.setFormalName(name)
 
     val description = new EntryDescription()

@@ -51,6 +51,17 @@ class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
 		
 		assertFalse summaries.atEnd
 	}
+
+    @Test
+    void TestHasCurrentDefinition() {
+        def summaries = service.getResourceSummaries(null as ValueSetQuery,null,new Page(maxToReturn:50,page:0))
+
+        assertEquals 50, summaries.entries.size()
+
+        summaries.entries.each {
+            assertNotNull it.currentDefinition
+        }
+    }
 	
 	@Test
 	void TestQueryContainsFilter() {
