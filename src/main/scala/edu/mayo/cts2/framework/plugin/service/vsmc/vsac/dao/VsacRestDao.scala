@@ -8,9 +8,14 @@ import org.springframework.stereotype.Component
 import JSON._
 import dispatch._
 import net.minidev.json.JSONObject
+import com.google.common.cache.{CacheLoader, LoadingCache, CacheBuilder}
+import java.util.concurrent.TimeUnit
+import sun.management.snmp.util.SnmpListTableCache
+import edu.mayo.cts2.framework.plugin.service.vsmc.util.ListCache
+import org.springframework.beans.factory.InitializingBean
 
 @Component
-class VsacRestDao {
+class VsacRestDao extends InitializingBean {
 
   @scala.reflect.BeanProperty
   @Value("${utsUsername}")
@@ -20,16 +25,26 @@ class VsacRestDao {
   @Value("${utsPassword}")
   var password: String = _
 
+  @scala.reflect.BeanProperty
+  @Value("${vsacRestUrl}")
+  var vsacRestUrl: String = _
+
+  var valueSetCache:ListCache[ScalaJSON] = _
+
+  def afterPropertiesSet() {
+    valueSetCache = new ListCache(_getAllValueSets _)
+  }
+
   def getValueSet(oid:String) = {
     val json = getJson(
-      "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid)
+      vsacRestUrl + "/pc/vs/valueset/"+oid)
 
     parseJSON(json)
   }
 
   def getValueSetDefinition(oid:String, version:String) = {
     val json = getJson(
-        "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def/"+version)
+      vsacRestUrl + "/pc/vs/valueset/"+oid+"/def/"+version)
         
     parseJSON(json)
   }
@@ -40,22 +55,26 @@ class VsacRestDao {
         "_search" -> "false")
 
     val json = getJson(
-      "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/grouping/"+oid+"/def/"+version, params)
+      vsacRestUrl + "/pc/vs/valueset/grouping/"+oid+"/def/"+version, params)
 
     parseJSON(json)
   }
 
   def getValueSetDefinitionVersions(oid:String) = {
     val json = getJson(
-        "https://vsac.nlm.nih.gov/vsac/pc/vs/valueset/"+oid+"/def-versions")
+      vsacRestUrl + "/pc/vs/valueset/"+oid+"/def-versions")
         
     parseJSON(json).rows.foldLeft(Seq[String]())(_ :+ _.name.toString).sortWith(_ < _)
   }
-  
-  def getAllValueSets: Seq[ScalaJSON] = {
-    val json = postJson("https://vsac.nlm.nih.gov/vsac/pc/vs/search", allValueSetsQueryParams)
+
+  private def _getAllValueSets: Seq[ScalaJSON] = {
+    val json = postJson(vsacRestUrl + "/pc/vs/search", allValueSetsQueryParams)
 
     parseJSON(json).rows
+  }
+
+  def getAllValueSets: Seq[ScalaJSON] = {
+    valueSetCache.get()
   }
 
   private def allValueSetsQueryParams() = {
@@ -69,7 +88,7 @@ class VsacRestDao {
 
   def getMembersOfValueSet(oid: String, version: String, rows: Int, page: Int): ScalaJSON = {
 
-    val url = "https://vsac.nlm.nih.gov/vsac/pc/code/codes"
+    val url = vsacRestUrl + "/pc/code/codes"
     val params =
       Map(
         "oid" -> oid,

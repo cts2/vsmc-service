@@ -151,9 +151,9 @@ class VsmcValueSetQueryService
 
   def getKnownProperties: java.util.Set[PredicateReference] = { new java.util.HashSet[PredicateReference]() }
 
-  @Transactional
   def getResourceSummaries(query: ValueSetQuery, sort: SortCriteria, page: Page = new Page()): DirectoryResult[ValueSetCatalogEntrySummary] = {
     var builder = new ValueSetDirectoryBuilder(
+      urlConstructor,
       vsacRestDao.getAllValueSets,
       matchAlgorithms,
       searchReferences).
@@ -189,6 +189,7 @@ class VsmcValueSetQueryService
 
   def count(query: ValueSetQuery): Int = {
     var builder:DirectoryBuilder[ValueSetCatalogEntrySummary] = new ValueSetDirectoryBuilder(
+      urlConstructor,
       vsacRestDao.getAllValueSets,
       matchAlgorithms,
       searchReferences)
