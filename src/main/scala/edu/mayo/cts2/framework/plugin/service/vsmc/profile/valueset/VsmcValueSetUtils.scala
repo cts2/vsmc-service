@@ -1,7 +1,5 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valueset
 
-import scala.collection.JavaConversions._
-import scala.collection.JavaConversions.iterableAsScalaIterable
 import edu.mayo.cts2.framework.core.url.UrlConstructor
 import edu.mayo.cts2.framework.model.core.NameAndMeaningReference
 import edu.mayo.cts2.framework.model.core.RoleReference
@@ -9,14 +7,13 @@ import edu.mayo.cts2.framework.model.core.SourceAndRoleReference
 import edu.mayo.cts2.framework.model.core.SourceReference
 import edu.mayo.cts2.framework.model.core.ValueSetDefinitionReference
 import edu.mayo.cts2.framework.model.core.ValueSetReference
-import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils
 
 object VsmcValueSetUtils {
 
-  def buildValueSetReference(valueSetRow :ScalaJSON, urlConstructor: UrlConstructor): ValueSetReference = {
+  def buildValueSetReference(valueSetRow: ScalaJSON, urlConstructor: UrlConstructor): ValueSetReference = {
     val oid = valueSetRow.oid
 
     val ref = new ValueSetReference()
@@ -26,24 +23,24 @@ object VsmcValueSetUtils {
 
     ref
   }
-  
+
   def buildValueSetDefinitionReference(
-      valueSetDefRow :ScalaJSON, 
-      urlConstructor: UrlConstructor): ValueSetDefinitionReference = {
+                                        valueSetDefRow: ScalaJSON,
+                                        urlConstructor: UrlConstructor): ValueSetDefinitionReference = {
     buildValueSetDefinitionReference(
-    		valueSetDefRow.oid,
-    		UriUtils.oidToUri(valueSetDefRow.oid),
-    		valueSetDefRow.oid.toString + ":" + valueSetDefRow.revision.toString,
-    		UriUtils.oidToUri(valueSetDefRow.oid) + ":" + valueSetDefRow.revision,
-    		urlConstructor)
+      valueSetDefRow.oid,
+      UriUtils.oidToUri(valueSetDefRow.oid),
+      valueSetDefRow.oid.toString + ":" + valueSetDefRow.revision.toString,
+      UriUtils.oidToUri(valueSetDefRow.oid) + ":" + valueSetDefRow.revision,
+      urlConstructor)
   }
 
   def buildValueSetDefinitionReference(
-    name: String, 
-    about: String,
-    defName: String, 
-    defDocUri: String,
-    urlConstructor: UrlConstructor): ValueSetDefinitionReference = {
+                                        name: String,
+                                        about: String,
+                                        defName: String,
+                                        defDocUri: String,
+                                        urlConstructor: UrlConstructor): ValueSetDefinitionReference = {
     val currentDefinition = new ValueSetDefinitionReference()
 
     val valueSetRef = new ValueSetReference(name)
@@ -72,5 +69,5 @@ object VsmcValueSetUtils {
 
     sourceAndRoleRef
   }
- 
+
 }

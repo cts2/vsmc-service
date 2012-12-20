@@ -32,28 +32,32 @@ class VsmcValueSetDefinitionQueryService
   @Resource
   var vsacRestDao: VsacRestDao = _
 
-  def getSupportedMatchAlgorithms: java.util.Set[_ <: MatchAlgorithmReference] = { 
-    val set = new java.util.HashSet[MatchAlgorithmReference]() 
+  def getSupportedMatchAlgorithms: java.util.Set[_ <: MatchAlgorithmReference] = {
+    val set = new java.util.HashSet[MatchAlgorithmReference]()
     set.add(StandardMatchAlgorithmReference.CONTAINS.getMatchAlgorithmReference)
     set.add(StandardMatchAlgorithmReference.STARTS_WITH.getMatchAlgorithmReference)
     set
   }
 
-  def getSupportedSearchReferences: java.util.Set[_ <: PropertyReference] = { 
-    val set = new java.util.HashSet[PropertyReference]() 
+  def getSupportedSearchReferences: java.util.Set[_ <: PropertyReference] = {
+    val set = new java.util.HashSet[PropertyReference]()
     set.add(StandardModelAttributeReference.RESOURCE_NAME.getPropertyReference)
     set.add(StandardModelAttributeReference.RESOURCE_SYNOPSIS.getPropertyReference)
-    
+
     set
   }
 
-  def getSupportedSortReferences: java.util.Set[_ <: PropertyReference] = { new java.util.HashSet[PropertyReference]() }
+  def getSupportedSortReferences: java.util.Set[_ <: PropertyReference] = {
+    new java.util.HashSet[PropertyReference]()
+  }
 
-  def getKnownProperties: java.util.Set[PredicateReference] = { new java.util.HashSet[PredicateReference]() }
+  def getKnownProperties: java.util.Set[PredicateReference] = {
+    new java.util.HashSet[PredicateReference]()
+  }
 
   @Transactional
   def getResourceSummaries(query: ValueSetDefinitionQuery, sort: SortCriteria, page: Page = new Page()): DirectoryResult[ValueSetDefinitionDirectoryEntry] = {
-    if(query.getRestrictions.getValueSet != null){
+    if (query.getRestrictions.getValueSet != null) {
       val oid = query.getRestrictions.getValueSet.getName
       val versions = vsacRestDao.getValueSetDefinitionVersions(oid)
 
@@ -64,8 +68,8 @@ class VsmcValueSetDefinitionQueryService
         }
       })
 
-      val directoryEntries = Futures.awaitAll(1000*20, getValueSetFunctions:_*).foldLeft(Seq[ValueSetDefinitionDirectoryEntry]()){
-        (seq,json) => {
+      val directoryEntries = Futures.awaitAll(1000 * 20, getValueSetFunctions: _*).foldLeft(Seq[ValueSetDefinitionDirectoryEntry]()) {
+        (seq, json) => {
           seq :+ rowToValueSetDefinition(json.asInstanceOf[Option[ScalaJSON]].get)
         }
       }
@@ -76,7 +80,7 @@ class VsmcValueSetDefinitionQueryService
     }
   }
 
-  private def rowToValueSetDefinition(jsonRow: ScalaJSON) : ValueSetDefinitionDirectoryEntry = {
+  private def rowToValueSetDefinition(jsonRow: ScalaJSON): ValueSetDefinitionDirectoryEntry = {
     val oid = jsonRow.oid
     val name = jsonRow.name
     val version = jsonRow.revision

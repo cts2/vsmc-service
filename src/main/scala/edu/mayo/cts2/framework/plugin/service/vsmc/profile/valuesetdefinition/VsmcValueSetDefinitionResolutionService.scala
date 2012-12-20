@@ -2,9 +2,6 @@ package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
 
 import java.util.Set
 import scala.collection.JavaConversions._
-import scala.collection.JavaConverters._
-import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
-import org.apache.commons.lang.ObjectUtils
 import org.apache.commons.lang.StringUtils
 import org.springframework.stereotype.Component
 import edu.mayo.cts2.framework.model.command.Page
@@ -17,7 +14,6 @@ import edu.mayo.cts2.framework.model.core.NameAndMeaningReference
 import edu.mayo.cts2.framework.model.core.PredicateReference
 import edu.mayo.cts2.framework.model.core.PropertyReference
 import edu.mayo.cts2.framework.model.core.SortCriteria
-import edu.mayo.cts2.framework.model.core.ValueSetDefinitionReference
 import edu.mayo.cts2.framework.model.entity.EntityDirectoryEntry
 import edu.mayo.cts2.framework.model.service.core.NameOrURI
 import edu.mayo.cts2.framework.model.valuesetdefinition.ResolvedValueSet
@@ -25,7 +21,6 @@ import edu.mayo.cts2.framework.model.valuesetdefinition.ResolvedValueSetHeader
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.valueset.VsmcValueSetUtils
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.IdType
-import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriResolver
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ResolvedValueSetResolutionEntityQuery
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ResolvedValueSetResult
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ValueSetDefinitionResolutionService
@@ -53,13 +48,13 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
   def getKnownProperties: Set[PredicateReference] = null
 
   def resolveDefinition(
-    id: ValueSetDefinitionReadId,
-    codeSystemVersions: Set[NameOrURI],
-    codeSystemVersionTag: NameOrURI,
-    query: ResolvedValueSetResolutionEntityQuery,
-    sort: SortCriteria,
-    readContext: ResolvedReadContext,
-    page: Page): ResolvedValueSetResult[EntitySynopsis] = {
+                         id: ValueSetDefinitionReadId,
+                         codeSystemVersions: Set[NameOrURI],
+                         codeSystemVersionTag: NameOrURI,
+                         query: ResolvedValueSetResolutionEntityQuery,
+                         sort: SortCriteria,
+                         readContext: ResolvedReadContext,
+                         page: Page): ResolvedValueSetResult[EntitySynopsis] = {
 
     val version = id.getName;
     val oid = id.getValueSet.getName
@@ -73,8 +68,8 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
       resultJson.rows.foldLeft(Seq[EntitySynopsis]())(_ :+ jsonToEntitySynopsis(_))
 
     val definitionJson = vsacRestDao.getValueSetDefinition(oid, version)
-    
-    
+
+
     new ResolvedValueSetResult(buildHeader(definitionJson), entrySeq, total == entrySeq.size)
   }
 

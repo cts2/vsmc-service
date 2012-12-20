@@ -1,4 +1,6 @@
-package edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao;
+package edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao
+
+;
 
 import scala.collection.JavaConversions._
 
@@ -8,9 +10,6 @@ import org.springframework.stereotype.Component
 import JSON._
 import dispatch._
 import net.minidev.json.JSONObject
-import com.google.common.cache.{CacheLoader, LoadingCache, CacheBuilder}
-import java.util.concurrent.TimeUnit
-import sun.management.snmp.util.SnmpListTableCache
 import edu.mayo.cts2.framework.plugin.service.vsmc.util.ListCache
 import org.springframework.beans.factory.InitializingBean
 
@@ -29,41 +28,41 @@ class VsacRestDao extends InitializingBean {
   @Value("${vsacRestUrl}")
   var vsacRestUrl: String = _
 
-  var valueSetCache:ListCache[ScalaJSON] = _
+  var valueSetCache: ListCache[ScalaJSON] = _
 
   def afterPropertiesSet() {
     valueSetCache = new ListCache(_getAllValueSets _)
   }
 
-  def getValueSet(oid:String) = {
+  def getValueSet(oid: String) = {
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/"+oid)
+      vsacRestUrl + "/pc/vs/valueset/" + oid)
 
     parseJSON(json)
   }
 
-  def getValueSetDefinition(oid:String, version:String) = {
+  def getValueSetDefinition(oid: String, version: String) = {
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/"+oid+"/def/"+version)
-        
+      vsacRestUrl + "/pc/vs/valueset/" + oid + "/def/" + version)
+
     parseJSON(json)
   }
 
-  def getGroupingInfo(oid:String, version:String) = {
+  def getGroupingInfo(oid: String, version: String) = {
     val params =
       Map(
         "_search" -> "false")
 
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/grouping/"+oid+"/def/"+version, params)
+      vsacRestUrl + "/pc/vs/valueset/grouping/" + oid + "/def/" + version, params)
 
     parseJSON(json)
   }
 
-  def getValueSetDefinitionVersions(oid:String) = {
+  def getValueSetDefinitionVersions(oid: String) = {
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/"+oid+"/def-versions")
-        
+      vsacRestUrl + "/pc/vs/valueset/" + oid + "/def-versions")
+
     parseJSON(json).rows.foldLeft(Seq[String]())(_ :+ _.name.toString).sortWith(_ < _)
   }
 

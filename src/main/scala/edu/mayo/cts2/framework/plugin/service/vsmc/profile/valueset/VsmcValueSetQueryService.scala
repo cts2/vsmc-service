@@ -1,9 +1,7 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valueset
 
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import scala.collection.JavaConversions._
-import scala.collection.JavaConverters._
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import edu.mayo.cts2.framework.filter.`match`.AttributeResolver
 import edu.mayo.cts2.framework.filter.`match`.ContainsMatcher
@@ -28,9 +26,6 @@ import edu.mayo.cts2.framework.service.profile.valueset.ValueSetQueryService
 import scala.collection.immutable.Set
 import javax.annotation.Resource
 import edu.mayo.cts2.framework.model.core.URIAndEntityName
-import edu.mayo.cts2.framework.filter.`match`.StateAdjustingPropertyReference
-import edu.mayo.cts2.framework.filter.`match`.StateAdjustingPropertyReference.StateUpdater
-import edu.mayo.cts2.framework.model.core.MatchAlgorithmReference
 import edu.mayo.cts2.framework.model.core.types.TargetReferenceType
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils
 import org.apache.commons.lang.StringUtils
@@ -72,8 +67,8 @@ class VsmcValueSetQueryService
   }
 
   class ScalaJSONAttributeResolver(
-    val attributeName: String,
-    val canBeArray: Boolean) extends AttributeResolver[ScalaJSON] {
+                                    val attributeName: String,
+                                    val canBeArray: Boolean) extends AttributeResolver[ScalaJSON] {
 
     override def resolveAttribute(row: ScalaJSON): java.lang.Iterable[String] = {
       val json = row.apply(attributeName)
@@ -147,9 +142,13 @@ class VsmcValueSetQueryService
     Set(resourceName, resourceSynopsis, nqfNumber, qdmCategory, meaningfulUse, emeasureId, developer)
   }
 
-  def getSupportedSortReferences: java.util.Set[_ <: PropertyReference] = { new java.util.HashSet[PropertyReference]() }
+  def getSupportedSortReferences: java.util.Set[_ <: PropertyReference] = {
+    new java.util.HashSet[PropertyReference]()
+  }
 
-  def getKnownProperties: java.util.Set[PredicateReference] = { new java.util.HashSet[PredicateReference]() }
+  def getKnownProperties: java.util.Set[PredicateReference] = {
+    new java.util.HashSet[PredicateReference]()
+  }
 
   def getResourceSummaries(query: ValueSetQuery, sort: SortCriteria, page: Page = new Page()): DirectoryResult[ValueSetCatalogEntrySummary] = {
     var builder = new ValueSetDirectoryBuilder(
@@ -168,11 +167,11 @@ class VsmcValueSetQueryService
   }
 
   def createPropertyReference(
-    referenceType: TargetReferenceType,
-    name: String,
-    uri: String,
-    jsonElement: String,
-    canBeArray: Boolean = false): ResolvablePropertyReference[ScalaJSON] = {
+                               referenceType: TargetReferenceType,
+                               name: String,
+                               uri: String,
+                               jsonElement: String,
+                               canBeArray: Boolean = false): ResolvablePropertyReference[ScalaJSON] = {
 
     val attributeResolver = new ScalaJSONAttributeResolver(jsonElement, canBeArray)
 
@@ -188,7 +187,7 @@ class VsmcValueSetQueryService
   def getResourceList(p1: ValueSetQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetCatalogEntry] = throw new UnsupportedOperationException()
 
   def count(query: ValueSetQuery): Int = {
-    var builder:DirectoryBuilder[ValueSetCatalogEntrySummary] = new ValueSetDirectoryBuilder(
+    var builder: DirectoryBuilder[ValueSetCatalogEntrySummary] = new ValueSetDirectoryBuilder(
       urlConstructor,
       vsacRestDao.getAllValueSets,
       matchAlgorithms,
