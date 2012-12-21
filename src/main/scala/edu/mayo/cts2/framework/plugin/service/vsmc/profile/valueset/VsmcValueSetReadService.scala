@@ -64,10 +64,28 @@ class VsmcValueSetReadService extends AbstractService with ValueSetReadService {
 
     valueSet.setResourceSynopsis(description)
 
+    Seq(
+      ("nqfs", jsonRow.nqfs),
+      ("cms", jsonRow.cms),
+      ("groupingDescription", jsonRow.groupingDescription),
+      ("type", jsonRow.`type`),
+      ("developer", jsonRow.developer)
+    ) foreach {
+      (prop) => {
+        val name = prop._1
+        val value = prop._2
+
+        if(value != null){
+          valueSet.addProperty(createProperty(name, value)   )
+        }
+      }
+
+    }
+
     valueSet
   }
 
-  def createProperty(name: String, value: String) = {
+  private def createProperty(name: String, value: String) = {
     val prop = new Property()
 
     val predicate = new PredicateReference()
