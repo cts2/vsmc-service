@@ -88,7 +88,7 @@ class VsacRestDao extends InitializingBean {
   def getMembersOfValueSet(oid: String, version: String, rows: Int, page: Int): ScalaJSON = {
 
     val url = vsacRestUrl + "/pc/code/codes"
-    val params =
+    val queryParams =
       Map(
         "oid" -> oid,
         "def" -> version,
@@ -98,7 +98,7 @@ class VsacRestDao extends InitializingBean {
         "sidx" -> "code",
         "sord" -> "asc")
 
-    val json = getJson(url, params)
+    val json = getJson(url, queryParams)
 
     parseJSON(json)
   }

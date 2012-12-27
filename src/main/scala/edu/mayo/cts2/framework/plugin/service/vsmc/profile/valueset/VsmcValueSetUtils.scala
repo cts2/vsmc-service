@@ -10,6 +10,7 @@ import edu.mayo.cts2.framework.model.core.ValueSetReference
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils
+import edu.mayo.cts2.framework.plugin.service.vsmc.uri.UriUtils._
 
 object VsmcValueSetUtils {
 
@@ -30,8 +31,8 @@ object VsmcValueSetUtils {
     buildValueSetDefinitionReference(
       valueSetDefRow.oid,
       UriUtils.oidToUri(valueSetDefRow.oid),
-      valueSetDefRow.oid.toString + ":" + valueSetDefRow.revision.toString,
-      UriUtils.oidToUri(valueSetDefRow.oid) + ":" + valueSetDefRow.revision,
+      valueSetDefRow.revision.toString,
+      UriUtils.oidAndVersionToUri(valueSetDefRow.oid, valueSetDefRow.revision.toString),
       urlConstructor)
   }
 
