@@ -90,6 +90,7 @@ class VsmcValueSetDefinitionQueryService
     valueSetDefinition.setDocumentURI(oidAndVersionToUri(oid, version))
     valueSetDefinition.setResourceName(version)
     valueSetDefinition.setFormalName(name)
+    valueSetDefinition.setHref(urlConstructor.createValueSetDefinitionUrl(oid, version))
 
     val description = new EntryDescription()
     description.setValue(ModelUtils.toTsAnyType(name))

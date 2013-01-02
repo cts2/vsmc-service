@@ -39,7 +39,7 @@ class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
 	@Test
 	void TestMaxToReturn() {
 		def summaries = service.getResourceSummaries(null as ValueSetQuery,null,new Page(maxToReturn:5,page:0))
-		
+
 		assertEquals 5, summaries.entries.size()
 	}
 	
