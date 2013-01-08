@@ -37,6 +37,19 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 	}
 
     @Test
+    void TestQueryAtEnd() {
+        def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
+
+        def result = service.resolveDefinition(id, null, null, null, null, null, new Page(page: 1, maxToReturn:100))
+
+        assertNotNull result
+        assertTrue result.entries.size() > 0
+        assertTrue result.entries.size() < 1000
+
+        assertTrue result.atEnd
+    }
+
+    @Test
     void TestQueryCorrectSize() {
         def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
 

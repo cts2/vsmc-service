@@ -69,7 +69,7 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
 
     val definitionJson = vsacRestDao.getValueSetDefinition(oid, version)
 
-    new ResolvedValueSetResult(buildHeader(definitionJson), entrySeq, total == entrySeq.size)
+    new ResolvedValueSetResult(buildHeader(definitionJson, resultJson), entrySeq, total <= page.getEnd())
   }
 
   private def jsonToEntitySynopsis(row: ScalaJSON) = {
@@ -90,7 +90,19 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
     synopsis
   }
 
-  private def buildHeader(json: ScalaJSON): ResolvedValueSetHeader = {
+  /*
+   * Since they don't provided versions of used CodeSystems (only
+   * CodeSystemNames), we sample the first few entries to pull them.
+   */
+  private def getCodeSystemVersions(entriesJson: ScalaJSON) = {
+    entriesJson.rows.slice(0,25).foldLeft(Map[String,String]())(
+      (map, entry) => {
+        map ++ Map(entry.codesystemname.toString -> entry.codesystemversion.toString)
+      }
+    )
+  }
+
+  private def buildHeader(json: ScalaJSON, entriesJson: ScalaJSON): ResolvedValueSetHeader = {
     val header = new ResolvedValueSetHeader()
 
     import VsmcValueSetUtils._
@@ -101,12 +113,14 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
 
     val codeSystems = StringUtils.split(json.codeSystem, ' ')
 
+    val versions = getCodeSystemVersions(entriesJson)
+
     val versionRefs = codeSystems.foldLeft(Seq[CodeSystemVersionReference]())(
       (seq, entry) => {
         val ref = new CodeSystemVersionReference()
 
         val csName = entry
-        var versionId = "unknown"
+        val versionId = versions.getOrElse(csName, "unknown")
 
         val codeSystemName = uriResolver.idToName(csName, IdType.CODE_SYSTEM)
         val codeSystemUri = uriResolver.idToUri(csName, IdType.CODE_SYSTEM)
