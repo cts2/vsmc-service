@@ -1,5 +1,7 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valueset
 
+import org.junit.Ignore
+
 import static org.junit.Assert.*
 
 import javax.annotation.Resource
@@ -62,8 +64,27 @@ class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
             assertNotNull it.currentDefinition
         }
     }
-	
-	@Test
+
+    @Test
+    @Ignore
+    void TestResolveTime() {
+        while(true){
+            def duration = benchmark {
+                def summaries = service.getResourceSummaries(null as ValueSetQuery,null,new Page(maxToReturn:5000,page:0))
+            }
+
+            println "execution took ${duration} ms"
+        }
+    }
+
+    def benchmark = { closure ->
+        def start = System.currentTimeMillis()
+        closure.call()
+        def now = System.currentTimeMillis()
+        now - start
+    }
+
+    @Test
 	void TestQueryContainsFilter() {
 		def summaries = service.getResourceSummaries(
 			{

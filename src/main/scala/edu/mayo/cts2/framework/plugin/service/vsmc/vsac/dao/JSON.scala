@@ -1,11 +1,8 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao
 
-;
-
 import net.minidev.json.JSONValue
 import net.minidev.json.JSONArray
 import net.minidev.json.JSONObject
-
 
 object JSON {
   def parseJSON(s: String) = new ScalaJSON(JSONValue.parse(s))

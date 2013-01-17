@@ -12,6 +12,7 @@ import edu.mayo.cts2.framework.model.util.ModelUtils
 import edu.mayo.cts2.framework.model.core.EntryDescription
 import edu.mayo.cts2.framework.core.url.UrlConstructor
 import VsmcValueSetUtils._
+import scala.collection.mutable.ArrayBuffer
 
 case class ValueSetDirectoryBuilder(
                                      urlConstructor: UrlConstructor,
@@ -25,9 +26,14 @@ case class ValueSetDirectoryBuilder(
 
   override
   def transformResults(rawResults: java.util.List[ScalaJSON]): java.util.List[ValueSetCatalogEntrySummary] = {
-    rawResults.foldLeft(Seq[ValueSetCatalogEntrySummary]()) {
-      (seq, row) => seq :+ rowToValueSet(row)
+    //use an ArrayBuffer here - this performs better than the 'foldLeft' I was using.
+    //TODO: find out why...
+    val buffer = new ArrayBuffer[ValueSetCatalogEntrySummary](rawResults.size)
+    rawResults foreach {
+      (json: ScalaJSON) => buffer += rowToValueSet(json)
     }
+
+    buffer
   }
 
   private def rowToValueSet(jsonRow: ScalaJSON): ValueSetCatalogEntrySummary = {
