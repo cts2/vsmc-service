@@ -138,7 +138,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
   }
 
   private def getEntries(oid: String, version: String) = {
-    vsacRestDao.getMembersOfValueSet(oid, version, MAX_SPECIFIC_ENTITIES, 0).rows.foldLeft(new SpecificEntityList())(
+    vsacRestDao.getMembersOfValueSet(oid, version, MAX_SPECIFIC_ENTITIES, 1).rows.foldLeft(new SpecificEntityList())(
       (list, row) => {
         list.addReferencedEntity(buildEntityEntry(row))
         list

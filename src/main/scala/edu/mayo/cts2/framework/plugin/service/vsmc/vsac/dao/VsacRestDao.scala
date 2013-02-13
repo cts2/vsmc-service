@@ -82,7 +82,10 @@ class VsacRestDao extends InitializingBean {
       "cms" -> null,
       "category" -> null,
       "developer" -> null,
-      "mu" -> null)
+      "mu" -> null,
+      "page" -> "1",
+      "rows" -> "100000"
+    )
   }
 
   def getMembersOfValueSet(oid: String, version: String, rows: Int, page: Int): ScalaJSON = {
@@ -91,14 +94,12 @@ class VsacRestDao extends InitializingBean {
     val queryParams =
       Map(
         "oid" -> oid,
-        "def" -> version,
+        "revision" -> version,
         "_search" -> "false",
         "rows" -> rows.toString,
-        "page" -> page.toString,
-        "sidx" -> "code",
-        "sord" -> "asc")
+        "page" -> page.toString)
 
-    val json = getJson(url, queryParams)
+    val json = postJson(url, queryParams)
 
     parseJSON(json)
   }

@@ -28,7 +28,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestRead() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.read(id, null)
 		

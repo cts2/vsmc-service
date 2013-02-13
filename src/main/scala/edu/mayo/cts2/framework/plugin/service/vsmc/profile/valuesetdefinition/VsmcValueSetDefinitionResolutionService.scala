@@ -62,10 +62,10 @@ class VsmcValueSetDefinitionResolutionService extends AbstractService with Value
     val resultJson =
       vsacRestDao.getMembersOfValueSet(oid, version, page.getMaxToReturn, page.getPage + 1)
 
-    val total: Int = resultJson.rowCount
+    val total: Int = resultJson.records
 
     val entrySeq =
-      resultJson.rows.slice(page.getStart, page.getEnd).foldLeft(Seq[EntitySynopsis]())(_ :+ jsonToEntitySynopsis(_))
+      resultJson.rows.foldLeft(Seq[EntitySynopsis]())(_ :+ jsonToEntitySynopsis(_))
 
     val definitionJson = vsacRestDao.getValueSetDefinition(oid, version)
 
