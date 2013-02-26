@@ -29,8 +29,7 @@ class RestUriResolverTest {
 	
 	@Before
 	void SetUp(){
-		resolver = new RestUriResolver()
-		resolver.setUriResolutionServiceUrl("https://informatics.mayo.edu/cts2/services/uriresolver")
+		resolver = new RestUriResolver("https://informatics.mayo.edu/cts2/services/uriresolver")
 	}
 
 	@Test

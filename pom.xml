@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>edu.mayo.cts2.framework</groupId>
 		<artifactId>base-service-plugin</artifactId>
-		<version>0.8.1-SNAPSHOT</version>
+		<version>0.8.2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>vsmc-service</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<description>A CTS2 Framework Service Plugin based on the NLM VSAC REST Service.</description>

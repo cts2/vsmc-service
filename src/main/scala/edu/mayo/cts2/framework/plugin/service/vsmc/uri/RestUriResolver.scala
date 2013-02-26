@@ -1,12 +1,8 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.uri
 
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
-
 import clojure.lang.RT
 
-@Component
-class RestUriResolver extends UriResolver {
+class RestUriResolver(uriResolutionServiceUrl: String) extends UriResolver {
 
   RT.loadResourceScript("cts2/uri/UriResolutionService.clj");
 
@@ -15,10 +11,6 @@ class RestUriResolver extends UriResolver {
   val getBaseEntityUri = RT.`var`("cts2.uri", "getBaseEntityUri")
   val getVersionName = RT.`var`("cts2.uri", "getVersionName")
   val getVersionUri = RT.`var`("cts2.uri", "getVersionUri")
-
-  @scala.reflect.BeanProperty
-  @Value("${uriResolutionServiceUrl}")
-  var uriResolutionServiceUrl: String = _
 
   def idToUri(id: String, idType: IdType.Value): String = {
     val uri = getUri.invoke(uriResolutionServiceUrl, idType, id)

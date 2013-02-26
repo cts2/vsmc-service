@@ -8,9 +8,6 @@ trait UriResolver {
 
   def idToBaseUri(id: String): String
 
-  def idAndVersionToVersionName(id: String, versionId: String, idType: IdType.Value): String
-
-  def idAndVersionToVersionUri(id: String, versionId: String, idType: IdType.Value): String
 }
 
 object IdType extends Enumeration {

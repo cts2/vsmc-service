@@ -28,10 +28,4 @@
 	<bean id="configInitializer"
 		class="edu.mayo.cts2.framework.core.config.TestConfigInitializerSpringFactory" />
 
-	<bean id="namespaceResolutionService"
-		class="edu.mayo.cts2.framework.plugin.service.vsmc.namespace.NamespaceResolutionService">
-		<property name="namespaceServiceUrl"
-			value="http://informatics.mayo.edu/cts2/services/bioportal-rdf" />
-	</bean>
-
 </beans>

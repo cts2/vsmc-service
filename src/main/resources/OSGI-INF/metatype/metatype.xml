@@ -7,8 +7,7 @@
 		<AD name="UTS Auth Service Url" id="utsAuthServiceUrl" required="true" type="String" default="https://uts-ws.nlm.nih.gov/restful/IsValidUMLSUser"/>
 		<AD name="UTS License Code" id="utsLicenseCode" required="true" type="String" />
 		<AD name="UTS UMLS Release" id="utsUmlsRelease" required="true" type="String" default="2012AA"/>
-		<AD name="NamespaceService URL" id="namespaceServiceUrl" required="true" type="String" default="http://informatics.mayo.edu/cts2/services/bioportal-rdf/"  />
-		<AD name="UriResolutionService URL" id="uriResolutionServiceUrl" required="true" type="String" default="http://bmidev4:8000/"  />
+		<AD name="UriResolutionService URL" id="uriResolutionServiceUrl" required="true" type="String" default=""  />
 		<AD name="Security Check URL" id="securityCheckUrl" required="true" type="String" default="/j_spring_security_check"  />
 		<AD name="SNOMEDCT Entity URL Base" id="snomedCtUrlBase" required="false" type="String" default=""  />
         <AD name="VSAC REST URL" id="vsacRestUrl" required="true" type="String" default="https://vsac.nlm.nih.gov/vsac"  />
