@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>vsmc-service</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<description>A CTS2 Framework Service Plugin based on the NLM VSAC REST Service.</description>
@@ -47,7 +47,7 @@
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:cts2/vsmc-service.git</developerConnection>
-	  <tag>vsmc-service-0.2.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<distributionManagement>
