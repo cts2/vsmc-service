@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -9,7 +8,7 @@
 	</parent>
 
 	<artifactId>vsmc-service</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<packaging>bundle</packaging>
 
 	<description>A CTS2 Framework Service Plugin based on the NLM VSAC REST Service.</description>
@@ -48,7 +47,8 @@
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:cts2/vsmc-service.git</developerConnection>
-	</scm>
+	  <tag>vsmc-service-0.2.0</tag>
+  </scm>
 
 	<distributionManagement>
 		<site>
