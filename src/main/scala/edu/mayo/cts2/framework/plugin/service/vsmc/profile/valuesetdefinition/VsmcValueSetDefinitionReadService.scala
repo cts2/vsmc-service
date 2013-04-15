@@ -23,6 +23,7 @@ import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.JSON._
 import org.apache.commons.collections.CollectionUtils
 import edu.mayo.cts2.framework.model.core.types.SetOperator
 import edu.mayo.cts2.framework.plugin.service.vsmc.uri.IdType
+import java.io.IOException
 
 @Component
 class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDefinitionReadService {
@@ -76,14 +77,19 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
     val oid = identifier.getValueSet.getName
     val version = identifier.getName
 
-    val definition = rowToValueSetDefinition(vsacRestDao.getValueSetDefinition(oid, version))
-
-    if (definition != null) {
-      new LocalIdValueSetDefinition(version, definition)
-    } else {
-      null
+    val definition =
+    try {
+      rowToValueSetDefinition(vsacRestDao.getValueSetDefinition(oid, version))
+    } catch {
+      case ioe: Exception => null
     }
-  }
+
+      if (definition != null) {
+        new LocalIdValueSetDefinition(version, definition)
+      } else {
+        null
+      }
+    }
 
   private def rowToValueSetDefinition(jsonRow: ScalaJSON): ValueSetDefinition = {
     val oid = jsonRow.oid

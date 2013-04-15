@@ -226,7 +226,7 @@ class VsmcValueSetQueryServiceTestIT extends AbstractTestITBase {
 				}
 			} as ValueSetQuery,null,new Page())
 		
-		assertEquals 25, summaries.entries.size()
+		assertEquals 30, summaries.entries.size()
 	}
 	
 	@Test
