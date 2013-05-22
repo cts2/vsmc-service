@@ -59,7 +59,7 @@ class VsmcValueSetQueryService
       StandardMatchAlgorithmReference.EXACT_MATCH.getMatchAlgorithmReference,
       new ExactMatcher())
 
-    Set(contains, contains, exactMatch)
+    Set(contains, startsWith, exactMatch)
   }
 
   override def getSupportedMatchAlgorithms: java.util.Set[ResolvableMatchAlgorithmReference] = {
