@@ -38,16 +38,22 @@ with EntityDescriptionReadService {
   @Resource
   var utsDao: UtsDao = _
 
+  @Override
   def readEntityDescriptions(p1: EntityNameOrURI, p2: SortCriteria, p3: ResolvedReadContext, p4: Page): DirectoryResult[EntityListEntry] = throw new RuntimeException()
 
-  def availableDescriptions(p1: EntityNameOrURI, p2: ResolvedReadContext): EntityReference = throw new RuntimeException()
+  @Override
+  def availableDescriptions(p1: EntityNameOrURI, p2: ResolvedReadContext): EntityReference = throw new UnsupportedOperationException()
 
-  def readEntityDescriptions(p1: EntityNameOrURI, p2: ResolvedReadContext): EntityList = throw new RuntimeException()
+  @Override
+  def readEntityDescriptions(p1: EntityNameOrURI, p2: ResolvedReadContext): java.util.List[EntityListEntry] = throw new UnsupportedOperationException()
 
-  def getKnownCodeSystems: java.util.List[CodeSystemReference] = throw new RuntimeException()
+  @Override
+  def getKnownCodeSystems: java.util.List[CodeSystemReference] = throw new UnsupportedOperationException()
 
-  def getKnownCodeSystemVersions: java.util.List[CodeSystemVersionReference] = throw new RuntimeException()
+  @Override
+  def getKnownCodeSystemVersions: java.util.List[CodeSystemVersionReference] = throw new UnsupportedOperationException()
 
+  @Override
   def read(id: EntityDescriptionReadId, context: ResolvedReadContext = null): EntityDescription = {
 
     val csv = id.getCodeSystemVersion.getName
