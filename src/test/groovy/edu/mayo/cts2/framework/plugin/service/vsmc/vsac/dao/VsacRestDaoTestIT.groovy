@@ -28,14 +28,14 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestGetMembersOfValueSet() {
-		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20121025", 10, 1)
+		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20130614", 10, 1)
 
 		assertNotNull result
 	}
 	
 	@Test
 	void TestGetMembersOfValueSetCorrectRowCount() {
-		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20121025", 1, 1)
+		def result = dao.getMembersOfValueSet("2.16.840.1.113883.3.600.1.1519", "20130614", 1, 1)
 
 		assertNotNull result
         println result
@@ -43,14 +43,14 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 
 	@Test
 	void TestGetValueSetDefinition() {
-		def result = dao.getValueSetDefinition("2.16.840.1.113883.3.600.1.1519", "20121025")
+		def result = dao.getValueSetDefinition("2.16.840.1.113883.3.600.1.1519", "20130614")
 
 		assertNotNull result
 	}
 
     @Test
     void TestGetGroupingInfo() {
-        def result = dao.getGroupingInfo("2.16.840.1.113883.3.600.1.1525", "20121025")
+        def result = dao.getGroupingInfo("2.16.840.1.113883.3.600.1.1525", "20130614")
 
         println(result)
         assertNotNull result
@@ -61,7 +61,6 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		def result = dao.getValueSetDefinitionVersions("2.16.840.1.113883.3.600.1.1519")
 
 		assertNotNull result
-		assertEquals 1, result.length()
-		assertEquals "20121025", result.iterator().next()
+		assertEquals 2, result.length()
 	}
 }

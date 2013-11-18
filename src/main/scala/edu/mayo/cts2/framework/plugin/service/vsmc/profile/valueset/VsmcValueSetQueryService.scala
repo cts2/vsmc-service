@@ -14,7 +14,7 @@ import edu.mayo.cts2.framework.model.core.PredicateReference
 import edu.mayo.cts2.framework.model.core.PropertyReference
 import edu.mayo.cts2.framework.model.core.SortCriteria
 import edu.mayo.cts2.framework.model.directory.DirectoryResult
-import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntry
+import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntryListEntry
 import edu.mayo.cts2.framework.model.valueset.ValueSetCatalogEntrySummary
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.plugin.service.vsmc.vsac.dao.ScalaJSON
@@ -184,7 +184,7 @@ class VsmcValueSetQueryService
     ref
   }
 
-  def getResourceList(p1: ValueSetQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetCatalogEntry] = throw new UnsupportedOperationException()
+  def getResourceList(p1: ValueSetQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetCatalogEntryListEntry] = throw new UnsupportedOperationException()
 
   def count(query: ValueSetQuery): Int = {
     var builder: DirectoryBuilder[ValueSetCatalogEntrySummary] = new ValueSetDirectoryBuilder(

@@ -28,7 +28,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestQuerySize() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.resolveDefinition(id, null, null, null, null, null, new Page())
 		
@@ -38,7 +38,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 
     @Test
     void TestQueryAtEnd() {
-        def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
+        def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
 
         def result = service.resolveDefinition(id, null, null, null, null, null, new Page(page: 1, maxToReturn:100))
 
@@ -51,7 +51,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 
     @Test
     void TestQueryCorrectSize() {
-        def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
+        def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.464.1003.113.12.1033"))
 
         def result = service.resolveDefinition(id, null, null, null, null, null, new Page())
 
@@ -62,7 +62,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 
 	@Test
 	void TestValidXml() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1498"))
 		
 		def entries = service.resolveDefinition(id, null, null, null, null, null, new Page()).entries
 		
@@ -75,7 +75,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestHeaderNotNull() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1498"))
 		
 		def entries = service.resolveDefinition(id, null, null, null, null, null, new Page())
 		
@@ -84,7 +84,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestHeaderOfGrouping() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
 		
 		def entries = service.resolveDefinition(id, null, null, null, null, null, new Page())
 		
@@ -93,7 +93,7 @@ class VsmcValueSetDefinitionResolutionServiceTestIT extends AbstractTestITBase {
 
 	@Test
 	void TestHeaderValidXml() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1498"))
 		
 		def entries = service.resolveDefinition(id, null, null, null, null, null, new Page())
 		

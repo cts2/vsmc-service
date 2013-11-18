@@ -58,7 +58,7 @@ class VsmcValueSetDefinitionReadService extends AbstractService with ValueSetDef
       return null;
     }
 
-    val versionId = vsacRestDao.getValueSetDefinitionVersions(valueSetName)(0)
+    val versionId = vsacRestDao.getValueSetDefinitionVersions(valueSetName).sorted.get(versions.size() - 1)
 
     new LocalIdValueSetDefinition(versionId, null)
   }

@@ -42,8 +42,12 @@ class VsacRestDao extends InitializingBean {
   }
 
   def getValueSetDefinition(oid: String, version: String) = {
+    val params =
+      Map(
+        "label" -> "Latest")
+
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/" + oid + "/def/" + version)
+      vsacRestUrl + "/pc/vs/valueset/" + oid + "/detail", params)
 
     parseJSON(json)
   }
@@ -95,7 +99,12 @@ class VsacRestDao extends InitializingBean {
       Map(
         "oid" -> oid,
         "revision" -> version,
+        "expRevision" -> null,
         "_search" -> "false",
+        "label" -> "Latest",
+        "filters" -> null,
+        "effDate" -> null,
+        "filterFields" -> null,
         "rows" -> rows.toString,
         "page" -> page.toString)
 

@@ -1,21 +1,16 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
-
-import edu.mayo.cts2.framework.service.profile.valueset.ValueSetQuery
-
-import static org.junit.Assert.*
-
-import javax.annotation.Resource
-import javax.xml.transform.stream.StreamResult
-
-import org.junit.Test
-
 import edu.mayo.cts2.framework.core.xml.DelegatingMarshaller
-import edu.mayo.cts2.framework.model.command.Page
 import edu.mayo.cts2.framework.model.util.ModelUtils
 import edu.mayo.cts2.framework.plugin.service.vsmc.test.AbstractTestITBase
 import edu.mayo.cts2.framework.service.command.restriction.ValueSetDefinitionQueryServiceRestrictions
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ValueSetDefinitionQuery
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ValueSetDefinitionQueryService
+import org.junit.Test
+
+import javax.annotation.Resource
+import javax.xml.transform.stream.StreamResult
+
+import static org.junit.Assert.*
 
 class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 
@@ -41,7 +36,7 @@ class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 				}
 			} as ValueSetDefinitionQuery,null,null)
 		
-		assertEquals 1, summaries.entries.size()
+		assertEquals 2, summaries.entries.size()
 	}
 
     @Test

@@ -1,18 +1,18 @@
 package edu.mayo.cts2.framework.plugin.service.vsmc.profile.valuesetdefinition
 
-import static org.junit.Assert.*
-
-import javax.annotation.Resource
-import javax.xml.transform.stream.StreamResult
-
-import org.junit.Test
-
 import edu.mayo.cts2.framework.core.xml.DelegatingMarshaller
 import edu.mayo.cts2.framework.model.core.VersionTagReference
 import edu.mayo.cts2.framework.model.util.ModelUtils
 import edu.mayo.cts2.framework.plugin.service.vsmc.test.AbstractTestITBase
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.ValueSetDefinitionReadService
 import edu.mayo.cts2.framework.service.profile.valuesetdefinition.name.ValueSetDefinitionReadId
+import org.junit.Ignore
+import org.junit.Test
+
+import javax.annotation.Resource
+import javax.xml.transform.stream.StreamResult
+
+import static org.junit.Assert.*
 
 class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 
@@ -28,7 +28,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestRead() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.read(id, null)
 		
@@ -36,8 +36,9 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	}
 
     @Test
+    @Ignore
     void TestReadNotFound() {
-        def id = new ValueSetDefinitionReadId("__INVALID__", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+        def id = new ValueSetDefinitionReadId("__INVALID__", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 
         def result = service.read(id, null)
 
@@ -47,14 +48,14 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	@Test
 	void TestReadByTag() {
 		def ref = new VersionTagReference("CURRENT")
-		def result = service.readByTag(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"), ref, null)
+		def result = service.readByTag(ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"), ref, null)
 		
 		assertNotNull result
 	}
 	
 	@Test
 	void TestReadGroupValueSet() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
 		
 		def result = service.read(id, null)
 		
@@ -74,7 +75,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestHasSourceAndNotation() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.read(id, null).getResource()
 		
@@ -83,7 +84,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestHasEntries() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.read(id, null).getResource()
 		
@@ -92,7 +93,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestReadValidXml() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1519"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.526.2.39"))
 		
 		def result = service.read(id, null)
 		
@@ -103,7 +104,7 @@ class VsmcValueSetDefinitionReadServiceTestIT extends AbstractTestITBase {
 	
 	@Test
 	void TestReadValidXmlGroup() {
-		def id = new ValueSetDefinitionReadId("20121025", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
+		def id = new ValueSetDefinitionReadId("20130614", ModelUtils.nameOrUriFromName("2.16.840.1.113883.3.600.1.1525"))
 		
 		def result = service.read(id, null)
 		

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 import edu.mayo.cts2.framework.model.command.Page
 import edu.mayo.cts2.framework.model.core._
 import edu.mayo.cts2.framework.model.directory.DirectoryResult
-import edu.mayo.cts2.framework.model.valuesetdefinition.ValueSetDefinition
+import edu.mayo.cts2.framework.model.valuesetdefinition.ValueSetDefinitionListEntry
 import edu.mayo.cts2.framework.model.valuesetdefinition.ValueSetDefinitionDirectoryEntry
 import edu.mayo.cts2.framework.plugin.service.vsmc.profile.AbstractService
 import edu.mayo.cts2.framework.service.meta.StandardMatchAlgorithmReference
@@ -103,7 +103,7 @@ class VsmcValueSetDefinitionQueryService
   }
 
 
-  def getResourceList(p1: ValueSetDefinitionQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetDefinition] = null
+  def getResourceList(p1: ValueSetDefinitionQuery, p2: SortCriteria, p3: Page): DirectoryResult[ValueSetDefinitionListEntry] = null
 
   def count(p1: ValueSetDefinitionQuery): Int = 0
 
