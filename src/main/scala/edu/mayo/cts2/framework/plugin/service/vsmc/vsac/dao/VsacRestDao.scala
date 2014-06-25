@@ -12,6 +12,7 @@ import dispatch._
 import net.minidev.json.JSONObject
 import edu.mayo.cts2.framework.plugin.service.vsmc.util.ListCache
 import org.springframework.beans.factory.InitializingBean
+import java.net.URLEncoder
 
 @Component
 class VsacRestDao extends InitializingBean {
@@ -30,6 +31,8 @@ class VsacRestDao extends InitializingBean {
 
   var valueSetCache: ListCache[ScalaJSON] = _
 
+  val LABEL: String = "MU2 EP Update 2014-05-30"
+
   def afterPropertiesSet() {
     valueSetCache = new ListCache(_getAllValueSets _)
   }
@@ -44,7 +47,7 @@ class VsacRestDao extends InitializingBean {
   def getValueSetDefinition(oid: String, version: String) = {
     val params =
       Map(
-        "label" -> "Latest")
+        "label" -> LABEL)
 
     val json = getJson(
       vsacRestUrl + "/pc/vs/valueset/" + oid + "/detail", params)
@@ -93,17 +96,19 @@ class VsacRestDao extends InitializingBean {
   }
 
   def getMembersOfValueSet(oid: String, version: String, rows: Int, page: Int): ScalaJSON = {
-
     val url = vsacRestUrl + "/pc/code/codes"
     val queryParams =
       Map(
         "oid" -> oid,
         "revision" -> version,
         "expRevision" -> null,
-        "_search" -> "false",
-        "label" -> "Latest",
+        "_search" -> false,
+        "label" -> LABEL,
         "filters" -> null,
+        "sortName" -> "code",
+        "sortOrder" -> "asc",
         "effDate" -> null,
+        "filters" -> null,
         "filterFields" -> null,
         "rows" -> rows.toString,
         "page" -> page.toString)
@@ -123,7 +128,7 @@ class VsacRestDao extends InitializingBean {
     }
   }
 
-  private def postJson(urlString: String, params: Map[String, String]): String = {
+  private def postJson(urlString: String, params: Map[String, Any]): String = {
     val queryJson = new JSONObject(params).toJSONString
 
     val result = Http(url(urlString).POST.secure.as_!(username, password) << queryJson OK as.String).either
