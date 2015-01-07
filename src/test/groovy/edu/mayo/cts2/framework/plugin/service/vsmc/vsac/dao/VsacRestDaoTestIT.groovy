@@ -61,6 +61,6 @@ class VsacRestDaoTestIT extends AbstractTestITBase {
 		def result = dao.getValueSetDefinitionVersions("2.16.840.1.113883.3.600.1.1519")
 
 		assertNotNull result
-		assertEquals 2, result.length()
+		assertEquals 3, result.length()
 	}
 }

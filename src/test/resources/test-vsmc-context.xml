@@ -28,4 +28,7 @@
 	<bean id="configInitializer"
 		class="edu.mayo.cts2.framework.core.config.TestConfigInitializerSpringFactory" />
 
+    <bean id="utsSecurityProvider"
+                class="edu.mayo.cts2.framework.plugin.service.vsmc.security.UtsSecurityProvider"/>
+
 </beans>

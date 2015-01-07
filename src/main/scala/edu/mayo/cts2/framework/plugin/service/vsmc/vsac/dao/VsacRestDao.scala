@@ -13,6 +13,7 @@ import net.minidev.json.JSONObject
 import edu.mayo.cts2.framework.plugin.service.vsmc.util.ListCache
 import org.springframework.beans.factory.InitializingBean
 import java.net.URLEncoder
+import org.springframework.web.util.UriUtils
 
 @Component
 class VsacRestDao extends InitializingBean {
@@ -31,7 +32,7 @@ class VsacRestDao extends InitializingBean {
 
   var valueSetCache: ListCache[ScalaJSON] = _
 
-  val LABEL: String = "MU2 EP Update 2014-05-30"
+  val LABEL: String = "MU2 EP Update 2014-07-01"
 
   def afterPropertiesSet() {
     valueSetCache = new ListCache(_getAllValueSets _)
@@ -61,7 +62,7 @@ class VsacRestDao extends InitializingBean {
         "_search" -> "false")
 
     val json = getJson(
-      vsacRestUrl + "/pc/vs/valueset/grouping/" + oid + "/def/" + version, params)
+      vsacRestUrl + "/pc/vs/valueset/grouping/" + oid + "/exp-version/" + version + "/release-label/" + UriUtils.encodePathSegment(LABEL, "UTF-8"), params)
 
     parseJSON(json)
   }
