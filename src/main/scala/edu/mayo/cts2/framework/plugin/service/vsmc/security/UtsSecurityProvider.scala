@@ -36,8 +36,8 @@ class UtsSecurityProvider extends AbstractUserDetailsAuthenticationProvider {
     val result = restTemplate.postForObject(authService, map, classOf[String])
 
     result match {
-      case TRUE_RESULT => true
-      case FALSE_RESULT => false
+      case msg if msg.toLowerCase.contains(TRUE_RESULT.toLowerCase) => true
+      case msg if msg.toLowerCase.contains(FALSE_RESULT.toLowerCase) => false
       case _ => throw new IllegalStateException("Illegal response from UTS AuthService: " + result)
     }
   }

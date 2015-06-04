@@ -36,7 +36,7 @@ class VsmcValueSetDefinitionQueryServiceTestIT extends AbstractTestITBase {
 				}
 			} as ValueSetDefinitionQuery,null,null)
 		
-		assertEquals 3, summaries.entries.size()
+		assertEquals 4, summaries.entries.size()
 	}
 
     @Test
